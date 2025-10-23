@@ -1,13 +1,13 @@
+import { Part } from "../soundcontroller/Part.js"
+
 
 // Takes in text and does replacement work
 export function PreprocessText(text) {
-    const parts = findParts(text);
-    console.log(parts);
     return text.replaceAll('<p1_Radio>', replaceOldText);
 }
 
 // Gets all the different instrumental parts in the song
-function findParts(text) {
+export function FindParts(text) {
     // Look through each line
     const lines = text.split(/\r?\n/);
 
@@ -28,8 +28,10 @@ function findParts(text) {
             continue;
         }
 
+        const part = new Part(instrumentName, i);
+
         // Save this instrument
-        parts.push(instrumentName);
+        parts.push(part);
     }
     return parts;
 }

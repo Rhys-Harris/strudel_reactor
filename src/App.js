@@ -9,9 +9,11 @@ import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/w
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
-import { PreprocessText } from './preprocessor/Preprocessor.js'
+import { FindParts, PreprocessText } from './preprocessor/Preprocessor.js'
+import { SoundController } from './soundcontroller/SoundController';
 
 let globalEditor = null;
+let soundBoard = null;
 
 const handleD3Data = (event) => {
     console.log(event.detail);
@@ -37,10 +39,17 @@ export function SetupButtons() {
         }
     }
     )
+    document.getElementById('parts').addEventListener('click', () => {
+        if (soundBoard == null) {
+            soundBoard = new SoundController();
+        }
+        let proc_text = document.getElementById('proc').value
+        soundBoard.addParts(FindParts(proc_text));
+    })
 }
 
 export function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started == true) {
+    if (globalEditor != null && globalEditor.repl.state.started === true) {
         console.log(globalEditor)
         applyPreprocessing();
         globalEditor.evaluate();
@@ -111,6 +120,8 @@ return (
                             <br />
                             <button id="play" className="btn btn-outline-primary">Play</button>
                             <button id="stop" className="btn btn-outline-primary">Stop</button>
+                            <br />
+                            <button id="parts" className="btn btn-outline-primary">Find Parts</button>
                         </nav>
                     </div>
                 </div>
@@ -119,7 +130,7 @@ return (
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4" id="soundBoard">
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={ProcAndPlay} defaultChecked />
                             <label className="form-check-label" htmlFor="flexRadioDefault1">
