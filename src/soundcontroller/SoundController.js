@@ -1,3 +1,5 @@
+import { applyPreprocessing } from "../App";
+
 // The little board to the bottom right that will
 // allow for the control of sounds
 export class SoundController {
@@ -43,9 +45,25 @@ export class SoundController {
         outerDiv.appendChild(input);
         outerDiv.appendChild(label);
         board.appendChild(outerDiv);
+
+        part.muter = input;
+    }
+
+    getPart(name) {
+        for (let i = 0; i < this.parts.length; ++i) {
+            if (this.parts[i].name === name) {
+                return this.parts[i];
+            }
+        }
+        return null;
     }
 
     update() {
         console.log("Updating board!");
+        for (let i = 0; i < this.parts.length; ++i) {
+            this.parts[i].updateMute();
+        }
+
+        applyPreprocessing();
     }
 }

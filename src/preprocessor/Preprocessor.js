@@ -2,8 +2,58 @@ import { Part } from "../soundcontroller/Part.js"
 
 
 // Takes in text and does replacement work
-export function PreprocessText(text) {
-    return text.replaceAll('<p1_Radio>', replaceOldText);
+export function PreprocessText(text, soundBoard) {
+    // No work to do
+    if (soundBoard == null) {
+        return text;
+    }
+
+    // Now, 
+    return updateParts(text, soundBoard);
+}
+
+function lineIsPart(line) {
+    // Is this an instrument def?
+    const colonIndex = line.indexOf(":");
+    if (colonIndex === -1) {
+        return ["", false];
+    }
+
+    // Any invalid characters in the name?
+    const instrumentName = line.substring(0, colonIndex);
+    if (!validInstrumentName(instrumentName)) {
+        return ["", false];
+    }
+
+    return [instrumentName, true];
+}
+
+// Returns the new text updated from the sound board
+function updateParts(text, soundBoard) {
+    // Look through each line
+    const lines = text.split(/\r?\n/);
+
+    for (let i = 0; i < lines.length; ++i) {
+        let line = lines[i].trim();
+
+        const [instrumentName, ok] = lineIsPart(line);
+        if (!ok) {
+            continue;
+        }
+
+        // Part hasn't been added to soundboard
+        const part = soundBoard.getPart(instrumentName);
+        if (part == null) {
+            continue;
+        }
+
+        if (part.muted) {
+            // Add the muting underscore
+            line = "_" + line;
+            lines[i] = line;
+        }
+    }
+    return lines.join("\n");
 }
 
 // Gets all the different instrumental parts in the song
@@ -16,15 +66,8 @@ export function FindParts(text) {
     for (let i = 0; i < lines.length; ++i) {
         const line = lines[i].trim();
 
-        // Is this an instrument def?
-        const colonIndex = line.indexOf(":");
-        if (colonIndex === -1) {
-            continue;
-        }
-
-        // Any invalid characters in the name?
-        const instrumentName = line.substring(0, colonIndex);
-        if (!validInstrumentName(instrumentName)) {
+        const [instrumentName, ok] = lineIsPart(line);
+        if (!ok) {
             continue;
         }
 

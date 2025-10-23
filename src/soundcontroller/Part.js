@@ -15,6 +15,8 @@ export class Part {
             return;
         }
 
+        console.log(this.muter.checked);
+
         this.muted = this.muter.checked;
     }
 }

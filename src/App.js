@@ -19,9 +19,9 @@ const handleD3Data = (event) => {
     console.log(event.detail);
 };
 
-function applyPreprocessing() {
+export function applyPreprocessing() {
     let proc_text = document.getElementById('proc').value
-    let proc_text_replaced = PreprocessText(proc_text);
+    let proc_text_replaced = PreprocessText(proc_text, soundBoard);
     globalEditor.setCode(proc_text_replaced)
 }
 
