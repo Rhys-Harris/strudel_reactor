@@ -1,4 +1,4 @@
-import { applyPreprocessing } from "../App";
+import { ProcAndPlay } from "../App";
 
 // The little board to the bottom right that will
 // allow for the control of sounds
@@ -64,6 +64,6 @@ export class SoundController {
             this.parts[i].updateMute();
         }
 
-        applyPreprocessing();
+        ProcAndPlay();
     }
 }
