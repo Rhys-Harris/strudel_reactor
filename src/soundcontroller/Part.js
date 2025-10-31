@@ -52,23 +52,7 @@ export class PartInfo {
     findSliders() {
         this.sliders = [];
 
-        const controls = GetInstrumentControls();
+        const controls = GetInstrumentControls(this.text);
         console.log(controls);
-
-        // EXAMPLE INSTRUMENT
-        // bassline:
-        // note(pick(basslines, bass))
-        // .sound("supersaw")
-        // .postgain(2)
-        // .room(0.6)
-        // .lpf(700)
-        // .room(0.4)
-        // .postgain(pick(gain_patterns, pattern));
-        //
-        // EXPECTED OUTPUT
-        // slider for postgain
-        // slider for room
-        // slider for lpf
-        // slider for room again? (maybe)
     }
 }
