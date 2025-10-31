@@ -1,13 +1,29 @@
 import { useState } from "react";
 
+let changeCounter = 0;
+
 const Slider = ({partSlider, instrument, soundBoard}) => {
-     const [sliderValue, setSliderValue] = useState(partSlider.value);
+    const [sliderValue, setSliderValue] = useState(partSlider.value);
+
+    function commitChange() {
+        console.log("comming", changeCounter);
+        if (changeCounter >= 1) {
+            console.log("Skipping update");
+            return;
+        }
+        ++changeCounter;
+
+        const timeout = setTimeout(() => {
+            soundBoard.update();
+            --changeCounter;
+        }, 500);
+    }
 
     function sliderTrigger(e) {
         const slider = e.target;
         const value = slider.value;
         partSlider.setValue(value)
-        // soundBoard.update();
+        commitChange();
         setSliderValue(value);
     }
 

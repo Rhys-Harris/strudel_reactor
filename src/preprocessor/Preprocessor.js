@@ -32,28 +32,33 @@ function lineIsPart(line) {
 function updateParts(text, soundBoard) {
     // Look through each line
     const lines = text.split(/\r?\n/);
+    const finalLines = [];
 
     for (let i = 0; i < lines.length; ++i) {
         let line = lines[i].trim();
 
         const [instrumentName, ok] = lineIsPart(line);
         if (!ok) {
+            finalLines.push(line);
             continue;
         }
 
         // Part hasn't been added to soundboard
         const part = soundBoard.getPart(instrumentName);
         if (part == null) {
+            finalLines.push(line);
             continue;
         }
 
-        if (part.muted) {
-            // Add the muting underscore
-            line = "_" + line;
-            lines[i] = line;
-        }
+        // Skip uncessessary lines
+        i = part.endLineNumber;
+        
+        const newText = part.recreate();
+        finalLines.push(newText);
     }
-    return lines.join("\n");
+
+    console.log(finalLines);
+    return finalLines.join("\n");
 }
 
 // Gets all the different instrumental parts in the song

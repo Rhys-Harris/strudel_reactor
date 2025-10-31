@@ -9,6 +9,9 @@ export class PartInfo {
         // Where in the original text the instrument is from
         this.lineNumber = lineNumber;
 
+        // To be determined
+        this.endLineNumber = 0;
+
         this.muted = false;
 
         // All the text related to this intstrument
@@ -25,7 +28,7 @@ export class PartInfo {
 
         // Semicolon is the end of instrument
         while (!lines[index].includes(";")) {
-            this.text += lines[index];
+            this.text += lines[index] + "\n";
             ++index;
 
             // Bad part (no semicolon)
@@ -44,12 +47,27 @@ export class PartInfo {
             return;
         }
 
-        this.text = this.text.substring(colonIndex+1);
+        this.text = this.text.substring(colonIndex+2);
+        this.endLineNumber = index;
     }
 
     // Searches through the text to
     // dynamically creates new sliders
     findSliders() {
         this.sliders = GetInstrumentControls(this.text);
+    }
+
+    // Recreates the original text for this part but with
+    // preprocessing changes.
+    recreate() {
+        let header = this.name + ":\n";
+        let finalText = this.text;
+
+        if (this.muted) {
+            // Add the muting underscore
+            header = "_" + header;
+        }
+
+        return header + finalText;
     }
 }
