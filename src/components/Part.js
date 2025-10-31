@@ -20,12 +20,11 @@ const Part = ({part, soundBoard}) => {
     }
 
     return (
-        <div className="form-check container-fluid">
-            <div className="row">
-                <div className="col">
+            <div className="col" style={{padding: "3%"}}>
+                <div className="row">
                     <label className="form-check-label" htmlFor={part.name+"Element"} name="partLabel">{part.name}</label>
                 </div>
-                <div className="col">
+                <div className="row">
                     <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute
                     </button>
                 </div>
@@ -41,7 +40,6 @@ const Part = ({part, soundBoard}) => {
                 )
             }
             </div>
-        </div>
         );
 };
 

@@ -1,6 +1,6 @@
 const Slider = ({partSlider, instrument}) => {
     return (
-        <div className="col">
+        <div className="row">
             <label className="form-check-label" htmlFor={instrument.name + "-" + partSlider.name}>
                 {partSlider.name}
             </label>
