@@ -1,4 +1,4 @@
-import { Part } from "../soundcontroller/Part.js"
+import { PartInfo } from "../soundcontroller/Part.js"
 
 
 // Takes in text and does replacement work
@@ -71,7 +71,7 @@ export function FindParts(text) {
             continue;
         }
 
-        const part = new Part(instrumentName, i);
+        const part = new PartInfo(instrumentName, i);
 
         // Save this instrument
         parts.push(part);

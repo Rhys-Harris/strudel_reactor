@@ -1,22 +1,7 @@
-export class Part {
+export class PartInfo {
     constructor(name, lineNumber) {
         this.name = name;
         this.lineNumber = lineNumber;
-        this.muter = null;
         this.muted = false;
-    }
-
-    updateMute() {
-        // Doesn't have an element that can be used
-        // to mute this
-        if (this.muter == null) {
-            // Soft error
-            console.error("Couldn't find muting element");
-            return;
-        }
-
-        console.log(this.muter.checked);
-
-        this.muted = this.muter.checked;
     }
 }

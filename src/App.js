@@ -11,6 +11,7 @@ import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import { FindParts, PreprocessText } from './preprocessor/Preprocessor.js'
 import { SoundController } from './soundcontroller/SoundController';
+import SoundBoard from './components/SoundBoard';
 
 let globalEditor = null;
 let soundBoard = null;
@@ -131,6 +132,7 @@ return (
                         <div id="editor" />
                         <div id="output" />
                     </div>
+                    <SoundBoard></SoundBoard>
                     <div className="col-md-4" id="soundBoard">
                     </div>
                 </div>
