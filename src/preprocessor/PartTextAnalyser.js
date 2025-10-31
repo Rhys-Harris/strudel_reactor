@@ -17,10 +17,10 @@ class PartTextParser {
         this.source = source;
 
         // Where in the list we currently are
-        this.curIndex = -1;
+        this.curIndex = 0;
 
         // What token are we on?
-        this.curTok = new Token(TOKEN_CODES.T_ILLEGAL, "")
+        this.curTok = source[0];
     }
 
     // In case we ever need to backtrack
@@ -51,11 +51,13 @@ class PartTextParser {
             return parentNode;
         }
         parentNode.children.push(startFunc);
+        this.nextTok();
 
         // Maybe some chaining?
         let chainFunc = this.parseChain();
         while (chainFunc.kind !== NODE_CODES.N_ILLEGAL) {
             parentNode.children.push(chainFunc);
+            this.nextTok();
             chainFunc = this.parseChain();
         }
 
@@ -63,11 +65,46 @@ class PartTextParser {
     }
 
     parseFuncCall() {
-        return new Node(NODE_CODES.N_ILLEGAL, "");
+        const funcCall = new Node(NODE_CODES.N_FUNC_CALL, "");
+    
+        // Name of the function
+        if (this.curTok.kind !== TOKEN_CODES.T_IDENTIFIER) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        funcCall.children.push(new Node(NODE_CODES.N_IDENTIFIER, this.curTok.text));
+        this.nextTok();
+    
+        // Opening brace
+        if (this.curTok.kind !== TOKEN_CODES.T_L_BRACE) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        funcCall.children.push(new Node(NODE_CODES.N_L_BRACE, this.curTok.text));
+        this.nextTok();
+
+        // Argument within the brackets
+        const value = this.parseValue();
+        if (value.kind === NODE_CODES.N_ILLEGAL) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        funcCall.children.push(value);
+        this.nextTok();
+
+        // Closing brace
+        if (this.curTok.kind !== TOKEN_CODES.T_R_BRACE) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        funcCall.children.push(new Node(NODE_CODES.N_R_BRACE, this.curTok.text));
+
+        return funcCall;
     }
 
     parseChain() {
         return new Node(NODE_CODES.N_ILLEGAL, "");
+    }
+
+    // Anything that can be a value (e.g., num, string, function call)
+    parseValue() {
+
     }
 }
 
