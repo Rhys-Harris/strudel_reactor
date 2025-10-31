@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Part from './Part';
+import { FindParts } from '../preprocessor/Preprocessor';
 
 const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
@@ -11,6 +12,9 @@ const SoundBoard = ({soundBoard}) => {
     }, [])
 
     function boardUpdateTrigger(e) {
+        let proc_text = document.getElementById('proc').value
+        soundBoard.addParts(FindParts(proc_text));
+
         console.log("Trigger activated");
         console.log(soundBoard.parts);
         setState(soundBoard.parts);

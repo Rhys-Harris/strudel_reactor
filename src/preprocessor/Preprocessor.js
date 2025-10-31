@@ -71,7 +71,7 @@ export function FindParts(text) {
             continue;
         }
 
-        const part = new PartInfo(instrumentName, i);
+        const part = new PartInfo(instrumentName, i, lines);
 
         // Save this instrument
         parts.push(part);

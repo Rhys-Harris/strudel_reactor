@@ -40,13 +40,6 @@ export function SetupButtons() {
         }
     }
     )
-    document.getElementById('parts').addEventListener('click', () => {
-        if (soundBoard == null) {
-            soundBoard = new SoundController();
-        }
-        let proc_text = document.getElementById('proc').value
-        soundBoard.addParts(FindParts(proc_text));
-    })
 }
 
 export function ProcAndPlay() {
@@ -122,8 +115,6 @@ return (
                             <br />
                             <button id="play" className="btn btn-outline-primary">Play</button>
                             <button id="stop" className="btn btn-outline-primary">Stop</button>
-                            <br />
-                            <button id="parts" className="btn btn-outline-primary">Find Parts</button>
                         </nav>
                     </div>
                 </div>
