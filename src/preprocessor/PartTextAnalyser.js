@@ -98,6 +98,19 @@ class PartTextParser {
         funcCall.children.push(value);
         this.nextTok();
 
+        while (this.curTok.kind === TOKEN_CODES.T_COMMA) {
+            funcCall.children.push(new Node(NODE_CODES.N_COMMA, this.curTok.text));
+            this.nextTok();
+
+            // Next argument within the brackets
+            const value = this.parseValue();
+            if (value.kind === NODE_CODES.N_ILLEGAL) {
+                return new Node(NODE_CODES.N_ILLEGAL, "");
+            }
+            funcCall.children.push(value);
+            this.nextTok();
+        }
+
         // Closing brace
         if (this.curTok.kind !== TOKEN_CODES.T_R_BRACE) {
             return new Node(NODE_CODES.N_ILLEGAL, "");
