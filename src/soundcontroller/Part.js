@@ -50,9 +50,6 @@ export class PartInfo {
     // Searches through the text to
     // dynamically creates new sliders
     findSliders() {
-        this.sliders = [];
-
-        const controls = GetInstrumentControls(this.text);
-        console.log(controls);
+        this.sliders = GetInstrumentControls(this.text);
     }
 }

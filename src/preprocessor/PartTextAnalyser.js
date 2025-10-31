@@ -60,8 +60,21 @@ function attemptCreateSlider(func, controls) {
 
     const funcName = func.children[0].text;
 
+    if (controlAlreadyExists(funcName, controls)) {
+        return;
+    }
+
     // Add the new slider! (assuming a reasonable range)
     controls.push(new PartSlider(funcName, arg.text, 0.0, 100.0));
+}
+
+function controlAlreadyExists(name, controls) {
+    for (let i = 0; i < controls.length; ++i) {
+        if (controls[i].name === name) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Takes the text related to an instrument and finds all the controls it

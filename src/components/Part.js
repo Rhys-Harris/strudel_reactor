@@ -1,3 +1,5 @@
+import Slider from "./Slider";
+
 const Part = ({part, soundBoard}) => {
     function partBtnTrigger(e) {
         console.log(e);
@@ -27,6 +29,17 @@ const Part = ({part, soundBoard}) => {
                     <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute
                     </button>
                 </div>
+            {
+                part.sliders.map(
+                    (slider) => (
+                            <Slider
+                                key={part.name + "-" + slider.name}
+                                partSlider={slider}
+                                instrument={part}
+                            />
+                    )
+                )
+            }
             </div>
         </div>
         );
