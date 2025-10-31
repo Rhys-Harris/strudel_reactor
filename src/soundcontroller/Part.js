@@ -1,11 +1,4 @@
-class PartSlider {
-    constructor(name, curValue, lo, hi) {
-        this.name = name;
-        this.value = curValue;
-        this.lo = lo;
-        this.hi = hi;
-    }
-}
+import { GetInstrumentControls } from "../preprocessor/PartTextAnalyser";
 
 // Logical component of the parts found on the DOM soundboard
 export class PartInfo {
@@ -58,6 +51,9 @@ export class PartInfo {
     // dynamically creates new sliders
     findSliders() {
         this.sliders = [];
+
+        const controls = GetInstrumentControls();
+        console.log(controls);
 
         // EXAMPLE INSTRUMENT
         // bassline:
