@@ -27,19 +27,18 @@ export function applyPreprocessing() {
 }
 
 export function SetupButtons() {
-    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
+    document.getElementById('play').addEventListener('click', () => ProcAndPlay());
     document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-    document.getElementById('process').addEventListener('click', () => {
-        applyPreprocessing();
-    });
 }
 
 export function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started === true) {
-        console.log(globalEditor)
-        applyPreprocessing();
-        globalEditor.evaluate();
+    if (globalEditor == null) {
+        return;
     }
+
+    applyPreprocessing();
+
+    globalEditor.evaluate();
 }
 
 export default function StrudelDemo() {

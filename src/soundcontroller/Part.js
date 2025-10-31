@@ -16,7 +16,6 @@ export class PartInfo {
 
         // All the text related to this intstrument
         this.getAllText(this.lineNumber, lines);
-        console.log(this.text);
 
         this.findSliders();
     }

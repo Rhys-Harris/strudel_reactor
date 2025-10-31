@@ -6,17 +6,12 @@ const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
 
     useEffect(() => {
-        console.log("use effect");
-        console.log(soundBoard);
         setState(soundBoard.parts);
     }, [])
 
     function boardUpdateTrigger(e) {
         let proc_text = document.getElementById('proc').value
         soundBoard.addParts(FindParts(proc_text));
-
-        console.log("Trigger activated");
-        console.log(soundBoard.parts);
         setState(soundBoard.parts);
     }
 
@@ -26,9 +21,6 @@ const SoundBoard = ({soundBoard}) => {
                 <div className="row" style={{padding: "2px"}}>
                     <div style={{width: "50%"}}>
                         <button style={{width: "100%"}} className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
-                    </div>
-                    <div style={{width: "50%"}}>
-                        <button style={{width: "100%"}}  id="process" className="btn btn-primary">Preprocess</button>
                     </div>
                 </div>
                 <div className="row" style={{padding: "2px"}}>

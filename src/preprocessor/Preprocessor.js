@@ -57,7 +57,6 @@ function updateParts(text, soundBoard) {
         finalLines.push(newText);
     }
 
-    console.log(finalLines);
     return finalLines.join("\n");
 }
 

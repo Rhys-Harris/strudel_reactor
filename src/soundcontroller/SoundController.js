@@ -10,9 +10,6 @@ export class SoundController {
     }
 
     addParts(parts) {
-        console.log("Adding parts!");
-        console.log(parts);
-
         // Clear any old parts
         this.parts = [];
 
