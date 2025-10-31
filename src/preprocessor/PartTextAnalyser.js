@@ -17,6 +17,10 @@ function isAlphaNumOrUnderscore(c) {
     return isAlpha(c) || isDigit(c) || c === "_".charCodeAt(0);
 }
 
+function isDigitOrDot(c) {
+    return isDigit(c) || c === ".".charCodeAt(0);
+}
+
 function isWhitespace(c) {
     switch (c) {
         case " ".charCodeAt(0):
@@ -162,7 +166,17 @@ class PartTextLexer {
                 break;
             default:
                 if (isDigit(this.curChar)) {
-    // T_NUM:        5,
+                    let finalText = String.fromCharCode(this.curChar);
+
+                    this.nextChar();
+                    while (isDigitOrDot(this.curChar)) {
+                        finalText += String.fromCharCode(this.curChar);
+                        this.nextChar();
+                    }
+                    this.prevChar();
+
+                    tok.kind = TOKEN_CODES.T_NUM;
+                    tok.text = finalText;
                 } else if (isAlpha(this.curChar)) {
                     let finalText = String.fromCharCode(this.curChar);
 
