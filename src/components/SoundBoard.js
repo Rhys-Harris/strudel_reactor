@@ -21,23 +21,38 @@ const SoundBoard = ({soundBoard}) => {
     }
 
     return (
-        <div className="row" id="soundBoard">
+        <div className="col-md-5">
             <div className="form-check container-fluid">
-                <div className="row">
-                    <button className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
+                <div className="row" style={{padding: "2px"}}>
+                    <div style={{width: "50%"}}>
+                        <button style={{width: "100%"}} className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
+                    </div>
+                    <div style={{width: "50%"}}>
+                        <button style={{width: "100%"}}  id="process" className="btn btn-primary">Preprocess</button>
+                    </div>
+                </div>
+                <div className="row" style={{padding: "2px"}}>
+                    <div style={{width: "50%"}}>
+                        <button style={{width: "100%"}}  id="play" className="btn btn-primary">Play</button>
+                    </div>
+                    <div style={{width: "50%"}}>
+                        <button style={{width: "100%"}}  id="stop" className="btn btn-primary">Stop</button>
+                    </div>
                 </div>
             </div>
-            {
-                parts.map(
-                    (part) => (
-                        <Part
-                            key={part.name}
-                            part={part}
-                            soundBoard={soundBoard}
-                        />
+            <div className="row" id="soundBoard">
+                {
+                    parts.map(
+                        (part) => (
+                            <Part
+                                key={part.name}
+                                part={part}
+                                soundBoard={soundBoard}
+                            />
+                        )
                     )
-                )
-            }
+                }
+            </div>
         </div>
     );
 };

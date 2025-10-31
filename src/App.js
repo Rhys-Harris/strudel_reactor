@@ -31,15 +31,7 @@ export function SetupButtons() {
     document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
     document.getElementById('process').addEventListener('click', () => {
         applyPreprocessing();
-    }
-    )
-    document.getElementById('process_play').addEventListener('click', () => {
-        if (globalEditor != null) {
-            applyPreprocessing();
-            globalEditor.evaluate()
-        }
-    }
-    )
+    });
 }
 
 export function ProcAndPlay() {
@@ -113,18 +105,7 @@ return (
                         <div id="output" />
                     </div>
                 </div>
-                <div className="col-md-5">
-                    <div className="row">
-                        <nav>
-                            <button id="process" className="btn btn-outline-primary">Preprocess</button>
-                            <button id="process_play" className="btn btn-outline-primary">Proc & Play</button>
-                            <br />
-                            <button id="play" className="btn btn-outline-primary">Play</button>
-                            <button id="stop" className="btn btn-outline-primary">Stop</button>
-                        </nav>
-                    </div>
                     <SoundBoard soundBoard={soundBoard}></SoundBoard>
-                </div>
             </div>
             </div>
             <canvas id="roll"></canvas>
