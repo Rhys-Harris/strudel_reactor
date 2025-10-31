@@ -62,10 +62,13 @@ class PartTextParser {
         parentNode.children.push(startFunc);
         this.nextTok();
 
+        let curChain = startFunc;
+
         // Maybe some chaining?
         let chainFunc = this.parseChain();
         while (chainFunc.kind !== NODE_CODES.N_ILLEGAL) {
-            parentNode.children.push(chainFunc);
+            curChain.chain = chainFunc;
+            curChain = curChain.chain;
             this.nextTok();
             chainFunc = this.parseChain();
         }
@@ -121,11 +124,59 @@ class PartTextParser {
     }
 
     parseChain() {
-        return new Node(NODE_CODES.N_ILLEGAL, "");
+        const chain = new Node(NODE_CODES.N_CHAIN, "");
+
+        // The dot
+        if (this.curTok.kind !== TOKEN_CODES.T_DOT) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        chain.children.push(new Node(NODE_CODES.N_DOT, this.curTok.text));
+        this.nextTok();
+
+        // The chained function
+        const funcCall = this.parseFuncCall();
+        if (funcCall.kind === NODE_CODES.N_ILLEGAL) {
+            return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
+        chain.children.push(funcCall);
+
+        // Another chain?
+        if (this.peekTok().kind === TOKEN_CODES.T_DOT) {
+            this.nextTok();
+            const newChain = this.parseChain();
+            if (newChain.kind === NODE_CODES.N_ILLEGAL) {
+                // Return invalid state
+                return new Node(NODE_CODES.N_ILLEGAL, "");
+            }
+
+            chain.chain = newChain;
+        }
+
+        return chain;
     }
 
     // Anything that can be a value (e.g., num, string, function call)
     parseValue() {
+        // This function wraps `parseRawValue` and adds
+        // logic for chaining
+        const rawValue = this.parseRawValue();
+
+        // Initiate a chain
+        if (this.peekTok().kind === TOKEN_CODES.T_DOT) {
+            this.nextTok();
+            const chain = this.parseChain();
+            if (chain.kind === NODE_CODES.N_ILLEGAL) {
+                // Return invalid state
+                return new Node(NODE_CODES.N_ILLEGAL, "");
+            }
+
+            rawValue.chain = chain;
+        }
+
+        return rawValue;
+    }
+
+    parseRawValue() {
         switch (this.curTok.kind) {
             case TOKEN_CODES.T_NUM:
                 return new Node(NODE_CODES.N_NUM, this.curTok.text);

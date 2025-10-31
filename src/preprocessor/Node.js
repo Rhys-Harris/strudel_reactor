@@ -25,5 +25,8 @@ export class Node {
 
         // Any children
         this.children = [];
+
+        // A chained function (if applicable)
+        this.chain = null;
     }
 }
