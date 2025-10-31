@@ -1,6 +1,6 @@
 import { PartTextLexer } from './PartTextLexer';
-import { NODE_CODES, Node } from './Node';
-import { TOKEN_CODES, Token } from './Token';
+import { PartTextParser } from './PartTextParser';
+import { Node, NODE_CODES } from "./Node";
 
 class PartSlider {
     constructor(name, curValue, lo, hi) {
@@ -11,186 +11,31 @@ class PartSlider {
     }
 }
 
-class PartTextParser {
-    constructor(source) {
-        // List of tokens to parse
-        this.source = source;
+function searchForControls(ast) {
+    const controls = [];
 
-        // Where in the list we currently are
-        this.curIndex = 0;
+    const startFunc = ast.children[0];
+    console.log("Finding controls");
+    attemptControl(startFunc, controls);
+}
 
-        // What token are we on?
-        this.curTok = source[0];
+// Recusively searches a function def for possible controls
+function attemptControl(func, controls) {
+    const funcName = func.children[0].text;
+    console.log(funcName);
+
+    // Check args
+    for (let i = 2; i < func.children.length-1; i += 2) {
+        const childFunc = func.children[i];
+        if (childFunc.kind === NODE_CODES.N_FUNC_CALL) {
+            attemptControl(childFunc, controls);
+        }
     }
 
-    // In case we ever need to backtrack
-    prevTok() {
-        this.curIndex--;
-        this.curTok = this.source[this.curIndex];
-    }
-
-    // In case we need more context
-    peekTok() {
-        const index = this.curIndex+1;
-        if (index >= this.source.length) {
-            return  new Token(TOKEN_CODES.T_ILLEGAL, "");
-        }
-        return this.source[index];
-    }
-
-    // Moves on to the next token in the source
-    nextTok() {
-        this.curIndex++;
-
-        // Don't error if we go out of bounds,
-        // just give back dummy value
-        if (this.curIndex >= this.source.length) {
-            this.curTok = new Token(TOKEN_CODES.T_ILLEGAL, "");
-            return;
-        }
-        this.curTok = this.source[this.curIndex];
-    }
-
-    parse() {
-        const parentNode = new Node(NODE_CODES.N_INSTRUMENT, "");
-
-        // Expect that an instrument starts with a single function call
-        const startFunc = this.parseFuncCall();
-        if (startFunc.kind === NODE_CODES.N_ILLEGAL) {
-            return parentNode;
-        }
-        parentNode.children.push(startFunc);
-        this.nextTok();
-
-        let curChain = startFunc;
-
-        // Maybe some chaining?
-        let chainFunc = this.parseChain();
-        while (chainFunc.kind !== NODE_CODES.N_ILLEGAL) {
-            curChain.chain = chainFunc;
-            curChain = curChain.chain;
-            this.nextTok();
-            chainFunc = this.parseChain();
-        }
-
-        return parentNode;
-    }
-
-    parseFuncCall() {
-        const funcCall = new Node(NODE_CODES.N_FUNC_CALL, "");
-    
-        // Name of the function
-        if (this.curTok.kind !== TOKEN_CODES.T_IDENTIFIER) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        funcCall.children.push(new Node(NODE_CODES.N_IDENTIFIER, this.curTok.text));
-        this.nextTok();
-    
-        // Opening brace
-        if (this.curTok.kind !== TOKEN_CODES.T_L_BRACE) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        funcCall.children.push(new Node(NODE_CODES.N_L_BRACE, this.curTok.text));
-        this.nextTok();
-
-        // Argument within the brackets
-        const value = this.parseValue();
-        if (value.kind === NODE_CODES.N_ILLEGAL) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        funcCall.children.push(value);
-        this.nextTok();
-
-        while (this.curTok.kind === TOKEN_CODES.T_COMMA) {
-            funcCall.children.push(new Node(NODE_CODES.N_COMMA, this.curTok.text));
-            this.nextTok();
-
-            // Next argument within the brackets
-            const value = this.parseValue();
-            if (value.kind === NODE_CODES.N_ILLEGAL) {
-                return new Node(NODE_CODES.N_ILLEGAL, "");
-            }
-            funcCall.children.push(value);
-            this.nextTok();
-        }
-
-        // Closing brace
-        if (this.curTok.kind !== TOKEN_CODES.T_R_BRACE) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        funcCall.children.push(new Node(NODE_CODES.N_R_BRACE, this.curTok.text));
-
-        return funcCall;
-    }
-
-    parseChain() {
-        const chain = new Node(NODE_CODES.N_CHAIN, "");
-
-        // The dot
-        if (this.curTok.kind !== TOKEN_CODES.T_DOT) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        chain.children.push(new Node(NODE_CODES.N_DOT, this.curTok.text));
-        this.nextTok();
-
-        // The chained function
-        const funcCall = this.parseFuncCall();
-        if (funcCall.kind === NODE_CODES.N_ILLEGAL) {
-            return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
-        chain.children.push(funcCall);
-
-        // Another chain?
-        if (this.peekTok().kind === TOKEN_CODES.T_DOT) {
-            this.nextTok();
-            const newChain = this.parseChain();
-            if (newChain.kind === NODE_CODES.N_ILLEGAL) {
-                // Return invalid state
-                return new Node(NODE_CODES.N_ILLEGAL, "");
-            }
-
-            chain.chain = newChain;
-        }
-
-        return chain;
-    }
-
-    // Anything that can be a value (e.g., num, string, function call)
-    parseValue() {
-        // This function wraps `parseRawValue` and adds
-        // logic for chaining
-        const rawValue = this.parseRawValue();
-
-        // Initiate a chain
-        if (this.peekTok().kind === TOKEN_CODES.T_DOT) {
-            this.nextTok();
-            const chain = this.parseChain();
-            if (chain.kind === NODE_CODES.N_ILLEGAL) {
-                // Return invalid state
-                return new Node(NODE_CODES.N_ILLEGAL, "");
-            }
-
-            rawValue.chain = chain;
-        }
-
-        return rawValue;
-    }
-
-    parseRawValue() {
-        switch (this.curTok.kind) {
-            case TOKEN_CODES.T_NUM:
-                return new Node(NODE_CODES.N_NUM, this.curTok.text);
-            case TOKEN_CODES.T_STRING:
-                return new Node(NODE_CODES.N_STRING, this.curTok.text);
-            case TOKEN_CODES.T_IDENTIFIER:
-                if (this.peekTok().kind === TOKEN_CODES.T_L_BRACE) {
-                    return this.parseFuncCall();
-                } else {
-                    return new Node(NODE_CODES.N_IDENTIFIER, this.curTok.text);
-                }
-            default:
-                return new Node(NODE_CODES.N_ILLEGAL, "");
-        }
+    // Check this functions chain
+    const chain = func.chain;
+    if (chain != null) {
+        attemptControl(chain.children[1], controls);
     }
 }
 
@@ -200,10 +45,20 @@ export function GetInstrumentControls(source) {
     const lexer = new PartTextLexer(source);
     const tokens = lexer.lex();
     console.log(tokens);
+    if (tokens.length === 0) {
+        return [];
+    }
 
     const parser = new PartTextParser(tokens);
     const ast = parser.parse();
     console.log(ast);
+    if (ast.children.length === 0) {
+        return [];
+    }
+
+    const controls = searchForControls(ast);
+    console.log(controls);
+    return controls;
 
 
     // EXAMPLE INSTRUMENT
