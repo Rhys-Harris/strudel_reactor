@@ -9,6 +9,8 @@ class PartSlider {
     }
 }
 
+
+
 class PartTextParser {
     constructor(source) {
         this.source = source;
