@@ -1,4 +1,5 @@
 import { PartTextLexer } from './PartTextLexer';
+import { NODE_CODES, Node } from './Node';
 
 class PartSlider {
     constructor(name, curValue, lo, hi) {
@@ -9,15 +10,37 @@ class PartSlider {
     }
 }
 
-
-
 class PartTextParser {
     constructor(source) {
         this.source = source;
     }
 
     parse() {
-        return null;
+        const parentNode = new Node(NODE_CODES.N_INSTRUMENT, "");
+
+        // Expect that an instrument starts with a single function call
+        const startFunc = this.parseFuncCall();
+        if (startFunc.kind === NODE_CODES.N_ILLEGAL) {
+            return parentNode;
+        }
+        parentNode.children.push(startFunc);
+
+        // Maybe some chaining?
+        let chainFunc = this.parseChain();
+        while (chainFunc.kind !== NODE_CODES.N_ILLEGAL) {
+            parentNode.children.push(chainFunc);
+            chainFunc = this.parseChain();
+        }
+
+        return parentNode;
+    }
+
+    parseFuncCall() {
+        return new Node(NODE_CODES.N_ILLEGAL, "");
+    }
+
+    parseChain() {
+        return new Node(NODE_CODES.N_ILLEGAL, "");
     }
 }
 
