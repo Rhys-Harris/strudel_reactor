@@ -145,7 +145,20 @@ class PartTextLexer {
                 tok.text = ",";
                 break;
             case '"'.charCodeAt(0):
-    // T_STRING:     4,
+                    let finalText = String.fromCharCode(this.curChar);
+
+                    this.nextChar();
+                    while (this.curChar !== '"'.charCodeAt(0)) {
+                        finalText += String.fromCharCode(this.curChar);
+                        this.nextChar();
+                        if (this.curChar === 0) {
+                            break;
+                        }
+                    }
+                    finalText += String.fromCharCode(this.curChar);
+
+                    tok.kind = TOKEN_CODES.T_STRING;
+                    tok.text = finalText;
                 break;
             default:
                 if (isDigit(this.curChar)) {
@@ -162,12 +175,9 @@ class PartTextLexer {
 
                     tok.kind = TOKEN_CODES.T_IDENTIFIER;
                     tok.text = finalText;
-    // T_IDENTIFIER: 0,
                 }
             break;
         }
-
-        console.log(tok);
 
         return tok;
     }
