@@ -18,7 +18,11 @@ const SoundBoard = ({soundBoard}) => {
 
     return (
         <div className="col-md-4" id="soundBoard">
-            <button id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
+            <div className="form-check container-fluid">
+                <div className="row">
+                    <button className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
+                </div>
+            </div>
             {
                 parts.map(
                     (part) => (

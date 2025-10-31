@@ -1,24 +1,33 @@
 const Part = ({part, soundBoard}) => {
     function partBtnTrigger(e) {
         console.log(e);
-        e.checked = !e.checked;
-        part.muted = e.checked;
+        const btn = e.target;
+        console.log(btn);
+        btn.checked = !btn.checked;
+        part.muted = btn.checked;
 
-        if (e.checked) {
-            e.classList.remove("btn-primary");
-            e.classList.add("btn-danger");
+        if (btn.checked) {
+            btn.classList.remove("btn-primary");
+            btn.classList.add("btn-danger");
         } else {
-            e.classList.remove("btn-danger");
-            e.classList.add("btn-primary");
+            btn.classList.remove("btn-danger");
+            btn.classList.add("btn-primary");
         }
 
         soundBoard.update();
     }
 
     return (
-        <div className="form-check">
-            <label className="form-check-label" htmlFor={part.name+"Element"} name="partLabel">{part.name}</label>
-            <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute</button>
+        <div className="form-check container-fluid">
+            <div className="row">
+                <div className="col">
+                    <label className="form-check-label" htmlFor={part.name+"Element"} name="partLabel">{part.name}</label>
+                </div>
+                <div className="col">
+                    <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute
+                    </button>
+                </div>
+            </div>
         </div>
         );
 };
