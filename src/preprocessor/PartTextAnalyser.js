@@ -1,5 +1,6 @@
 import { PartTextLexer } from './PartTextLexer';
 import { NODE_CODES, Node } from './Node';
+import { TOKEN_CODES, Token } from './Token';
 
 class PartSlider {
     constructor(name, curValue, lo, hi) {
@@ -12,7 +13,33 @@ class PartSlider {
 
 class PartTextParser {
     constructor(source) {
+        // List of tokens to parse
         this.source = source;
+
+        // Where in the list we currently are
+        this.curIndex = -1;
+
+        // What token are we on?
+        this.curTok = new Token(TOKEN_CODES.T_ILLEGAL, "")
+    }
+
+    // In case we ever need to backtrack
+    prevTok() {
+        this.curIndex--;
+        this.curTok = this.source[this.curIndex];
+    }
+
+    // Moves on to the next token in the source
+    nextTok() {
+        this.curIndex++;
+
+        // Don't error if we go out of bounds,
+        // just give back dummy value
+        if (this.curIndex >= this.source.length) {
+            this.curTok = new Token(TOKEN_CODES.T_ILLEGAL, "");
+            return;
+        }
+        this.curTok = this.source[this.curIndex];
     }
 
     parse() {
