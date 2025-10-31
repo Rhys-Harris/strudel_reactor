@@ -69,6 +69,11 @@ class PartTextLexer {
         this.curChar = 0;
     }
 
+    prevChar() {
+        this.curIndex--;
+        this.curChar = this.source[this.curIndex].charCodeAt(0);
+    }
+
     nextChar() {
         this.curIndex++;
         if (this.curIndex >= this.source.length) {
@@ -147,6 +152,13 @@ class PartTextLexer {
     // T_NUM:        5,
                 } else if (isAlpha(this.curChar)) {
                     let finalText = String.fromCharCode(this.curChar);
+
+                    this.nextChar();
+                    while (isAlphaNumOrUnderscore(this.curChar)) {
+                        finalText += String.fromCharCode(this.curChar);
+                        this.nextChar();
+                    }
+                    this.prevChar();
 
                     tok.kind = TOKEN_CODES.T_IDENTIFIER;
                     tok.text = finalText;
