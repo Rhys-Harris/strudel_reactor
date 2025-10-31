@@ -104,11 +104,17 @@ return (
                     <h2>Strudel Demo</h2>
                 </div>
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                <div className="col-md-7" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
+                    <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <textarea className="form-control" rows="15" id="proc" ></textarea>
                     </div>
-                    <div className="col-md-4">
-
+                    <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <div id="editor" />
+                        <div id="output" />
+                    </div>
+                </div>
+                <div className="col-md-5">
+                    <div className="row">
                         <nav>
                             <button id="process" className="btn btn-outline-primary">Preprocess</button>
                             <button id="process_play" className="btn btn-outline-primary">Proc & Play</button>
@@ -117,14 +123,9 @@ return (
                             <button id="stop" className="btn btn-outline-primary">Stop</button>
                         </nav>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
                     <SoundBoard soundBoard={soundBoard}></SoundBoard>
                 </div>
+            </div>
             </div>
             <canvas id="roll"></canvas>
         </main >

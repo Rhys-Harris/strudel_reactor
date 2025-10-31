@@ -21,7 +21,7 @@ const SoundBoard = ({soundBoard}) => {
     }
 
     return (
-        <div className="col-md-4" id="soundBoard">
+        <div className="row" id="soundBoard">
             <div className="form-check container-fluid">
                 <div className="row">
                     <button className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
