@@ -1,3 +1,5 @@
+import { TOKEN_CODES, Token } from './Token';
+
 function isDigit(c) {
     return '0'.charCodeAt(0) <= c && c <= '9'.charCodeAt(0);
 }
@@ -36,33 +38,12 @@ function isWhitespace(c) {
     }
 }
 
-const TOKEN_CODES = {
-    T_ILLEGAL:   -1,
-    T_IDENTIFIER: 0,
-    T_L_BRACE:    1,
-    T_R_BRACE:    2,
-    T_DOT:        3,
-    T_STRING:     4,
-    T_NUM:        5,
-    T_COMMA:      6,
-};
-
 class PartSlider {
     constructor(name, curValue, lo, hi) {
         this.name = name;
         this.value = curValue;
         this.lo = lo;
         this.hi = hi;
-    }
-}
-
-class Token {
-    constructor(kind, text) {
-        // Token code
-        this.kind = kind;
-
-        // Original text
-        this.text = text;
     }
 }
 
