@@ -29,6 +29,15 @@ class PartTextParser {
         this.curTok = this.source[this.curIndex];
     }
 
+    // In case we need more context
+    peekTok() {
+        const index = this.curIndex+1;
+        if (index >= this.source.length) {
+            return  new Token(TOKEN_CODES.T_ILLEGAL, "");
+        }
+        return this.source[index];
+    }
+
     // Moves on to the next token in the source
     nextTok() {
         this.curIndex++;
@@ -104,7 +113,20 @@ class PartTextParser {
 
     // Anything that can be a value (e.g., num, string, function call)
     parseValue() {
-
+        switch (this.curTok.kind) {
+            case TOKEN_CODES.T_NUM:
+                return new Node(NODE_CODES.N_NUM, this.curTok.text);
+            case TOKEN_CODES.T_STRING:
+                return new Node(NODE_CODES.N_STRING, this.curTok.text);
+            case TOKEN_CODES.T_IDENTIFIER:
+                if (this.peekTok().kind === TOKEN_CODES.T_L_BRACE) {
+                    return this.parseFuncCall();
+                } else {
+                    return new Node(NODE_CODES.N_IDENTIFIER, this.curTok.text);
+                }
+            default:
+                return new Node(NODE_CODES.N_ILLEGAL, "");
+        }
     }
 }
 
