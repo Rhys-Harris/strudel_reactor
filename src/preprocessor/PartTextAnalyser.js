@@ -14,6 +14,14 @@ class PartSlider {
         this.lo = lo;
         this.hi = hi;
     }
+
+    setValue(curValue) {
+        let value = parseFloat(curValue);
+        if (!isNaN(value)) {
+            this.value = value;
+        }
+
+    }
 }
 
 function searchForControls(ast) {

@@ -2,9 +2,7 @@ import Slider from "./Slider";
 
 const Part = ({part, soundBoard}) => {
     function partBtnTrigger(e) {
-        console.log(e);
         const btn = e.target;
-        console.log(btn);
         btn.checked = !btn.checked;
         part.muted = btn.checked;
 
@@ -35,6 +33,7 @@ const Part = ({part, soundBoard}) => {
                                 key={part.name + "-" + slider.name}
                                 partSlider={slider}
                                 instrument={part}
+                                soundBoard={soundBoard}
                             />
                     )
                 )
