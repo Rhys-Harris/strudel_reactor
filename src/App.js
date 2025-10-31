@@ -14,7 +14,7 @@ import { SoundController } from './soundcontroller/SoundController';
 import SoundBoard from './components/SoundBoard';
 
 let globalEditor = null;
-let soundBoard = null;
+let soundBoard = new SoundController();
 
 const handleD3Data = (event) => {
     console.log(event.detail);
@@ -132,9 +132,7 @@ return (
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <SoundBoard></SoundBoard>
-                    <div className="col-md-4" id="soundBoard">
-                    </div>
+                    <SoundBoard soundBoard={soundBoard}></SoundBoard>
                 </div>
             </div>
             <canvas id="roll"></canvas>

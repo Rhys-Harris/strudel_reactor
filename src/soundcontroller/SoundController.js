@@ -16,23 +16,13 @@ export class SoundController {
         // Clear any old parts
         this.parts = [];
 
-        const board = document.getElementById("soundBoard");
-        board.replaceChildren([]);
-
         for (let i = 0; i < parts.length; ++i) {
-            this.addPart(parts[i], board);
+            this.addPart(parts[i]);
         }
     }
 
-    addPart(part, board) {
+    addPart(part) {
         this.parts.push(part);
-
-        board.appendChild(
-            <Part
-                soundBoard={this}
-                part={part}
-            ></Part>
-        );
     }
 
     getPart(name) {

@@ -18,7 +18,7 @@ const Part = ({part, soundBoard}) => {
     return (
         <div className="form-check">
             <label className="form-check-label" htmlFor={part.name+"Element"} name="partLabel">{part.name}</label>
-            <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked="false">mute</button>
+            <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute</button>
         </div>
         );
 };
