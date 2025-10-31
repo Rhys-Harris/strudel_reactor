@@ -1,7 +1,7 @@
 const Slider = ({partSlider, instrument}) => {
     return (
         <div className="row">
-            <label className="form-check-label" htmlFor={instrument.name + "-" + partSlider.name}>
+            <label className="form-check-label text-center" htmlFor={instrument.name + "-" + partSlider.name}>
                 {partSlider.name}
             </label>
             <input type="range" className="form-input" id={instrument.name + "-" + partSlider.name} value={partSlider.value}>

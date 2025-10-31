@@ -21,8 +21,8 @@ const Part = ({part, soundBoard}) => {
 
     return (
             <div className="col" style={{padding: "3%"}}>
-                <div className="row">
-                    <label className="form-check-label" htmlFor={part.name+"Element"} name="partLabel">{part.name}</label>
+                <div className="row text-center">
+                    <h4 className="form-check-label">{part.name}</h4>
                 </div>
                 <div className="row">
                     <button onClick={partBtnTrigger} id={part.name+"Element"} name="muteButton" type="button" className="btn btn-primary" checked={false}>mute
