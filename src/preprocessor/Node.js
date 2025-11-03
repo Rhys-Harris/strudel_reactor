@@ -29,4 +29,18 @@ export class Node {
         // A chained function (if applicable)
         this.chain = null;
     }
+
+    getText() {
+        if (this.children.length === 0) {
+            return this.text;
+        }
+
+        let finalText = "";
+
+        for (let i = 0; i < this.children.length; ++i) {
+            finalText += this.children[i].getText();
+        }
+
+        return finalText;
+    }
 }

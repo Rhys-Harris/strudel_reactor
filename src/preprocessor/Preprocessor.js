@@ -82,41 +82,28 @@ export function FindParts(text) {
         // Save this instrument
         parts.push(part);
     }
+
     return parts;
 }
 
+// Checks whether a word could be used as the name
+// for an instrument
 function validInstrumentName(name) {
     for (let i = 0; i < name.length; ++i) {
-        if (!validInstrumentNameChar(name.charCodeAt(i))) {
+        if (!validInstrumentNameChar(name[i])) {
             return false;
         }
     }
     return true;
 }
 
+// Checks whether a character could be used in an
+// instrument's name
 function validInstrumentNameChar(char) {
-    const lettera = "a".charCodeAt(0);
-    const letterz = "z".charCodeAt(0);
-    const letterA = "A".charCodeAt(0);
-    const letterZ = "Z".charCodeAt(0);
-    const letter_ = "_".charCodeAt(0);
-    const letter0 = "0".charCodeAt(0);
-    const letter9 = "9".charCodeAt(0);
     return (
-        (char >= lettera && char <= letterz) ||
-            (char >= letterA && char <= letterZ) ||
-            (char >= letter0 && char <= letter9) ||
-            (char === letter_)
+        (char >= "a" && char <= "z") ||
+            (char >= "A" && char <= "Z") ||
+            (char >= "0" && char <= "9") ||
+            (char === "_")
     );
 }
-
-function replaceOldText(match, ...args) {
-
-    let replace = ""
-    if (document.getElementById('flexRadioDefault2').checked) {
-        replace = "_"
-    }
-
-    return replace
-}
-

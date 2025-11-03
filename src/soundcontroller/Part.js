@@ -62,11 +62,20 @@ export class PartInfo {
     // preprocessing changes.
     recreate() {
         let header = this.name + ":\n";
-        let finalText = this.text;
+        // let finalText = this.text;
+        let finalText = "";
 
         if (this.muted) {
             // Add the muting underscore
             header = "_" + header;
+        }
+
+        if (this.sliders.length === 0) {
+            finalText = this.text;
+        } else {
+            for (let i = 0; i < this.sliders.length; ++i) {
+                finalText += this.sliders[i].recreate();
+            }
         }
 
         return header + finalText;

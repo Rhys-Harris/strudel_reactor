@@ -150,7 +150,7 @@ return (
                 <SoundBoard soundBoard={soundBoard}></SoundBoard>
             </div>
             </div>
-            <canvas id="roll"></canvas>
+            <canvas id="roll" style={{backgroundColor: "red"}}></canvas>
         </main >
     </div >
 );
