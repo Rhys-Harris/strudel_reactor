@@ -140,7 +140,7 @@ return (
                 <div className="row">
                 <div className="col-md-7" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
                     <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <textarea className="form-control" rows="15" id="proc" ></textarea>
+                        <textarea className="form-control" rows="14" id="proc" style={{resize: 'none'}} ></textarea>
                     </div>
                     <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
