@@ -35,4 +35,10 @@ export class SoundController {
         console.log("Updating board!");
         ProcAndPlay();
     }
+
+    getCpmText() {
+        const cpmSlider = document.getElementById("cpmSlider");
+        const cpm = parseInt(cpmSlider.value);
+        return `setcps(${cpm}/60)\n\n`;
+    }
 }

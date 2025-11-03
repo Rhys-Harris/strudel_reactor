@@ -9,8 +9,8 @@ export class PartInfo {
         // Where in the original text the instrument is from
         this.lineNumber = lineNumber;
 
-        // To be determined
-        this.endLineNumber = 0;
+        // Number of lines of code this instrument spans
+        this.numLines = 0;
 
         this.muted = false;
 
@@ -24,6 +24,8 @@ export class PartInfo {
     // finding all text related to this instrument
     getAllText(index, lines) {
         this.text = "";
+
+        const startIndex = index;
 
         // Semicolon is the end of instrument
         while (!lines[index].includes(";")) {
@@ -47,7 +49,7 @@ export class PartInfo {
         }
 
         this.text = this.text.substring(colonIndex+2);
-        this.endLineNumber = index;
+        this.numLines = index-startIndex;
     }
 
     // Searches through the text to

@@ -8,6 +8,8 @@ export function PreprocessText(text, soundBoard) {
         return text;
     }
 
+    text = soundBoard.getCpmText() + text;
+
     // Now, 
     return updateParts(text, soundBoard);
 }
@@ -51,7 +53,7 @@ function updateParts(text, soundBoard) {
         }
 
         // Skip uncessessary lines
-        i = part.endLineNumber;
+        i += part.numLines;
         
         const newText = part.recreate();
         finalLines.push(newText);
