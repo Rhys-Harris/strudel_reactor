@@ -6,7 +6,6 @@ const Slider = ({partSlider, instrument, soundBoard}) => {
     const [sliderValue, setSliderValue] = useState(partSlider.value);
 
     function commitChange() {
-        console.log("comming", changeCounter);
         if (changeCounter >= 1) {
             console.log("Skipping update");
             return;
