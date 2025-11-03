@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Part from './Part';
 import { FindParts } from '../preprocessor/Preprocessor';
 
-let changeCounter = 0;
-
 const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
 
@@ -19,23 +17,10 @@ const SoundBoard = ({soundBoard}) => {
 
     const [sliderValue, setSliderValue] = useState(60);
 
-    function commitChange() {
-        if (changeCounter >= 1) {
-            console.log("Skipping update");
-            return;
-        }
-        ++changeCounter;
-
-        const timeout = setTimeout(() => {
-            soundBoard.update();
-            --changeCounter;
-        }, 500);
-    }
-
     function sliderTrigger(e) {
         const slider = e.target;
         const value = slider.value;
-        commitChange();
+        soundBoard.update();
         setSliderValue(value);
     }
 

@@ -37,8 +37,50 @@ export function ProcAndPlay() {
     }
 
     applyPreprocessing();
+    evaluate();
+}
 
-    globalEditor.evaluate();
+// Stops very quickly repeated evaluation calls
+let allowEvaluate = true;
+
+// Is another caller trying to trigger an evaluation?
+let evaluationPending = false;
+
+function evaluate() {
+    console.log(allowEvaluate, evaluationPending);
+
+    // Someone else will trigger the evaluation,
+    // therefore, don't worry
+    if (evaluationPending) {
+        return;
+    }
+
+    // Cooldown is off
+    if (allowEvaluate) {
+        // Trigger the evaluation
+        console.log("evaluation");
+        globalEditor.evaluate();
+
+        // Don't allow anymore evaluations
+        allowEvaluate = false;
+        evaluationPending = false;
+
+        // In a second, unlock evaluation
+        setTimeout(() => {
+            allowEvaluate = true;
+
+            // Redo, because we were asked
+            if (evaluationPending) {
+                evaluationPending = false;
+                evaluate();
+            }
+        }, 1000);
+
+        return;
+    } 
+
+    // Ask for an evaluation once we're ready
+    evaluationPending = true;
 }
 
 export default function StrudelDemo() {
