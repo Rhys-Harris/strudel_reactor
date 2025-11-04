@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CPMSlider from './CPMSlider';
 import Part from './Part';
 import PlayButton from './PlayButton';
 import StopButton from './StopButton';
@@ -20,24 +21,18 @@ const SoundBoard = ({soundBoard}) => {
         <div className="col-md-5">
             <div className="form-check container-fluid">
                 <div className="row" style={{padding: "2px"}}>
-                    <div style={{width: "50%"}}>
+                    <div style={{width: "33%"}}>
                         <UpdateButton soundBoard={soundBoard} setParts={setState} />
                     </div>
-                </div>
-                <div className="row" style={{padding: "2px"}}>
-                    <div style={{width: "50%"}}>
+                    <div style={{width: "33%"}}>
                         <PlayButton />
                     </div>
-                    <div style={{width: "50%"}}>
+                    <div style={{width: "33%"}}>
                         <StopButton />
                     </div>
                 </div>
                 <div className="row" style={{padding: "2px"}}>
-                    <label className="form-check-label text-center" htmlFor="cpmSlider">
-                       Cycles/Min: {sliderValue}
-                    </label>
-                    <input step="0.01" min="1" max="160" type="range" className="form-input" onChange={sliderTrigger} id="cpmSlider" value={sliderValue}>
-                    </input>
+                    <CPMSlider soundBoard={soundBoard} />
                 </div>
             </div>
             <div className="row" id="soundBoard">
