@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Part from './Part';
 import { FindParts } from '../preprocessor/Preprocessor';
+import PlayButton from './PlayButton';
+import StopButton from './StopButton';
 
 const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
@@ -34,10 +36,10 @@ const SoundBoard = ({soundBoard}) => {
                 </div>
                 <div className="row" style={{padding: "2px"}}>
                     <div style={{width: "50%"}}>
-                        <button style={{width: "100%"}}  id="play" className="btn btn-primary">Play</button>
+                        <PlayButton />
                     </div>
                     <div style={{width: "50%"}}>
-                        <button style={{width: "100%"}}  id="stop" className="btn btn-primary">Stop</button>
+                        <StopButton />
                     </div>
                 </div>
                 <div className="row" style={{padding: "2px"}}>

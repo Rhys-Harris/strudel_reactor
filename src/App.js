@@ -26,11 +26,6 @@ export function applyPreprocessing() {
     globalEditor.setCode(proc_text_replaced)
 }
 
-export function SetupButtons() {
-    document.getElementById('play').addEventListener('click', () => ProcAndPlay());
-    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-}
-
 export function ProcAndPlay() {
     if (globalEditor == null) {
         return;
@@ -38,6 +33,10 @@ export function ProcAndPlay() {
 
     applyPreprocessing();
     evaluate();
+}
+
+export function StopAudio() {
+    globalEditor.stop();
 }
 
 // Stops very quickly repeated evaluation calls
@@ -122,7 +121,6 @@ useEffect(() => {
     });
         
     document.getElementById('proc').value = stranger_tune
-    SetupButtons()
     applyPreprocessing();
 }, []);
 
