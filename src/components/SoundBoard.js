@@ -7,7 +7,7 @@ const SoundBoard = ({soundBoard}) => {
 
     useEffect(() => {
         setState(soundBoard.parts);
-    }, [])
+    }, [soundBoard.parts])
 
     function boardUpdateTrigger(e) {
         let proc_text = document.getElementById('proc').value
@@ -44,7 +44,7 @@ const SoundBoard = ({soundBoard}) => {
                     <label className="form-check-label text-center" htmlFor="cpmSlider">
                        Cycles/Min: {sliderValue}
                     </label>
-                    <input min="1" max="200" type="range" className="form-input" onChange={sliderTrigger} id="cpmSlider" value={sliderValue}>
+                    <input step="0.01" min="1" max="160" type="range" className="form-input" onChange={sliderTrigger} id="cpmSlider" value={sliderValue}>
                     </input>
                 </div>
             </div>

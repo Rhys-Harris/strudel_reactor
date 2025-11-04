@@ -72,7 +72,7 @@ stack(
 
   s("{~ ~ rim ~ cp ~ rim cp ~!2 rim ~ cp ~ < rim ~ >!2}%8 *2")
   .bank("[KorgDDM110, OberheimDmx]").speed(1.2)
-  .postgain(.25)
+  .postgain(0.25)
 );
 
 drums2: 

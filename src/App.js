@@ -55,32 +55,29 @@ function evaluate() {
         return;
     }
 
+    if (!allowEvaluate) {
+        // Ask for an evaluation once we're ready
+        evaluationPending = true;
+    }
+
     // Cooldown is off
-    if (allowEvaluate) {
-        // Trigger the evaluation
-        console.log("evaluation");
-        globalEditor.evaluate();
+    // Trigger the evaluation
+    globalEditor.evaluate();
 
-        // Don't allow anymore evaluations
-        allowEvaluate = false;
-        evaluationPending = false;
+    // Don't allow anymore evaluations
+    allowEvaluate = false;
+    evaluationPending = false;
 
-        // In a second, unlock evaluation
-        setTimeout(() => {
-            allowEvaluate = true;
+    // In a second, unlock evaluation
+    setTimeout(() => {
+        allowEvaluate = true;
 
-            // Redo, because we were asked
-            if (evaluationPending) {
-                evaluationPending = false;
-                evaluate();
-            }
-        }, 1000);
-
-        return;
-    } 
-
-    // Ask for an evaluation once we're ready
-    evaluationPending = true;
+        // Redo, because we were asked
+        if (evaluationPending) {
+            evaluationPending = false;
+            evaluate();
+        }
+    }, 1000);
 }
 
 export default function StrudelDemo() {

@@ -16,7 +16,7 @@ const Slider = ({partSlider, instrument, soundBoard}) => {
             <label className="form-check-label text-center" htmlFor={instrument.name + "-" + partSlider.name}>
                 {partSlider.name}
             </label>
-            <input min={partSlider.lo} max={partSlider.hi} type="range" className="form-input" onChange={sliderTrigger} id={instrument.name + "-" + partSlider.name} value={sliderValue}>
+            <input step="0.01" min={partSlider.lo} max={partSlider.hi} type="range" className="form-input" onChange={sliderTrigger} id={instrument.name + "-" + partSlider.name} value={sliderValue}>
             </input>
         </div>
         );

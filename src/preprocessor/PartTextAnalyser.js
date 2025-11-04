@@ -11,9 +11,10 @@ function searchForControls(ast) {
 
     const startFunc = ast.children[0];
     attemptControl(startFunc, controls);
-    if (controls.length !== 0) {
-        controls[controls.length-1].postText = textBuffer;
-    }
+
+    // Add a default volume slider
+    controls.push(new PartSlider("volume", "1.0", 0.0, 10.0, textBuffer + "\n\t.gain("));
+    controls[controls.length-1].postText = ")\n";
     textBuffer = "";
 
     return controls;
