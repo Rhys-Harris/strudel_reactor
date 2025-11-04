@@ -8,7 +8,7 @@ const StopButton = ({}) => {
 
     return (
         <button style={{width: "100%", padding: "0"}} id="stop" onClick={stopButtonTrigger}>
-            <img alt="play" src={stop} style={{width: "100%", height: "100%", imageRendering: "pixelated", margin: "0"}}>
+            <img alt="stop" src={stop} style={{width: "100%", height: "100%", imageRendering: "pixelated", margin: "0"}}>
             </img>
         </button>
     );

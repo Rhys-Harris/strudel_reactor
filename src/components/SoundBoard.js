@@ -1,21 +1,11 @@
 import { useState, useEffect } from 'react';
 import Part from './Part';
-import { FindParts } from '../preprocessor/Preprocessor';
 import PlayButton from './PlayButton';
 import StopButton from './StopButton';
+import UpdateButton from './UpdateButton';
 
 const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
-
-    useEffect(() => {
-        setState(soundBoard.parts);
-    }, [soundBoard.parts])
-
-    function boardUpdateTrigger(e) {
-        let proc_text = document.getElementById('proc').value
-        soundBoard.addParts(FindParts(proc_text));
-        setState(soundBoard.parts);
-    }
 
     const [sliderValue, setSliderValue] = useState(60);
 
@@ -31,7 +21,7 @@ const SoundBoard = ({soundBoard}) => {
             <div className="form-check container-fluid">
                 <div className="row" style={{padding: "2px"}}>
                     <div style={{width: "50%"}}>
-                        <button style={{width: "100%"}} className="btn btn-primary" id="boardUpdate" onClick={boardUpdateTrigger}>Update Board</button>
+                        <UpdateButton soundBoard={soundBoard} setParts={setState} />
                     </div>
                 </div>
                 <div className="row" style={{padding: "2px"}}>

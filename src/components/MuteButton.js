@@ -19,7 +19,7 @@ const MuteButton = ({part, soundBoard}) => {
     }
 
     return (
-        <button onClick={muteButtonTrigger} id={part.name+"MuteButton"} type="button" style={{width: "100px", height: "100px", padding: "0"}} checked={false}>
+        <button onClick={muteButtonTrigger} id={part.name+"MuteButton"} type="button" style={{width: "100%", aspectRation: "1 / 1", padding: "0"}} checked={false}>
             <img alt="mute" id={part.name+"MuteImage"} src={sound} style={{width: "100%", height: "100%", imageRendering: "pixelated", margin: "0"}}></img>
         </button>
     );
