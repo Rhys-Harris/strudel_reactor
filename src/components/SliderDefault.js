@@ -8,19 +8,19 @@ const SliderDefault = ({soundBoard, sliderDefault}) => {
                 <button style={{width: "100%", height: "100%"}}>Delete</button>
             </div>
             <div className="col-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Min</div>
+                <div className="input-group">
+                    <div className="input-group-prepend">
+                        <div className="input-group-text">Min</div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Low" value="0"></input>
+                    <input type="text" className="form-control" placeholder="Low" value="0"></input>
                 </div>
             </div>
             <div className="col-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Max</div>
+                <div className="input-group">
+                    <div className="input-group-prepend">
+                        <div className="input-group-text">Max</div>
                     </div>
-                    <input type="text" class="form-control" placeholder="High" value="100"></input>
+                    <input type="text" className="form-control" placeholder="High" value="100"></input>
                 </div>
             </div>
         </div>
