@@ -6,11 +6,12 @@ import PartSlider from "../soundcontroller/Slider";
 // Used to reconstruct final text
 let textBuffer = "";
 
-function searchForControls(ast) {
+function searchForControls(ast, soundBoard) {
+    console.log(soundBoard);
     const controls = [];
 
     const startFunc = ast.children[0];
-    attemptControl(startFunc, controls);
+    attemptControl(startFunc, controls, soundBoard);
 
     // Add a default volume slider
     controls.push(new PartSlider("volume", "1.0", 0.0, 10.0, textBuffer + "\n\t.gain("));
@@ -21,16 +22,16 @@ function searchForControls(ast) {
 }
 
 // Recusively searches a function def for possible controls
-function attemptControl(func, controls) {
+function attemptControl(func, controls, soundBoard) {
     textBuffer += func.children[0].text + "(";
 
     // See if we can use this like a slider
-    if (!attemptCreateSlider(func, controls)) {
+    if (!attemptCreateSlider(func, controls, soundBoard)) {
         // Check args
         for (let i = 2; i < func.children.length-1; i += 2) {
             const childFunc = func.children[i];
             if (childFunc.kind === NODE_CODES.N_FUNC_CALL) {
-                attemptControl(childFunc, controls);
+                attemptControl(childFunc, controls, soundBoard);
                 textBuffer += ",";
             } else {
                 textBuffer += func.children[i].getText() + ",";
@@ -47,11 +48,11 @@ function attemptControl(func, controls) {
     const chain = func.chain;
     if (chain != null) {
         textBuffer += "\n\t.";
-        attemptControl(chain.children[1], controls);
+        attemptControl(chain.children[1], controls, soundBoard);
     }
 }
 
-function attemptCreateSlider(func, controls) {
+function attemptCreateSlider(func, controls, soundBoard) {
     // Too many or too little args (expecting a single one)
     if (func.children.length !== 4) {
         // Just add the whole func
@@ -72,7 +73,8 @@ function attemptCreateSlider(func, controls) {
     }
 
     // Add the new slider! (assuming a reasonable range)
-    controls.push(new PartSlider(funcName, arg.text, 0.0, 100.0, textBuffer));
+    const [lo, hi] = soundBoard.getSliderDefaultRange(funcName);
+    controls.push(new PartSlider(funcName, arg.text, lo, hi, textBuffer));
     textBuffer = "";
     return true;
 }
@@ -88,7 +90,7 @@ function controlAlreadyExists(name, controls) {
 
 // Takes the text related to an instrument and finds all the controls it
 // can create
-export function GetInstrumentControls(source) {
+export function GetInstrumentControls(source, soundBoard) {
     const lexer = new PartTextLexer(source);
     const tokens = lexer.lex();
     if (tokens.length === 0) {
@@ -101,6 +103,6 @@ export function GetInstrumentControls(source) {
         return [];
     }
 
-    const controls = searchForControls(ast);
+    const controls = searchForControls(ast, soundBoard);
     return controls;
 }

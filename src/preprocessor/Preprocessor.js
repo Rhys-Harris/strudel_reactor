@@ -63,7 +63,7 @@ function updateParts(text, soundBoard) {
 }
 
 // Gets all the different instrumental parts in the song
-export function FindParts(text) {
+export function FindParts(text, soundBoard) {
     // Look through each line
     const lines = text.split(/\r?\n/);
 
@@ -77,7 +77,7 @@ export function FindParts(text) {
             continue;
         }
 
-        const part = new PartInfo(instrumentName, i, lines);
+        const part = new PartInfo(instrumentName, i, lines, soundBoard);
 
         // Save this instrument
         parts.push(part);

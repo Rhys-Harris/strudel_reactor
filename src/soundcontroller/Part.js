@@ -2,7 +2,7 @@ import { GetInstrumentControls } from "../preprocessor/PartTextAnalyser";
 
 // Logical component of the parts found on the DOM soundboard
 export class PartInfo {
-    constructor(name, lineNumber, lines) {
+    constructor(name, lineNumber, lines, soundBoard) {
         // E.g., "bassline"
         this.name = name;
 
@@ -17,7 +17,7 @@ export class PartInfo {
         // All the text related to this intstrument
         this.getAllText(this.lineNumber, lines);
 
-        this.findSliders();
+        this.findSliders(soundBoard);
     }
 
     // Searches through the source,
@@ -54,8 +54,8 @@ export class PartInfo {
 
     // Searches through the text to
     // dynamically creates new sliders
-    findSliders() {
-        this.sliders = GetInstrumentControls(this.text);
+    findSliders(soundBoard) {
+        this.sliders = GetInstrumentControls(this.text, soundBoard);
     }
 
     // Recreates the original text for this part but with

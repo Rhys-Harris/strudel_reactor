@@ -9,7 +9,7 @@ const UpdateButton = ({soundBoard, setParts}) => {
 
     function updateButtonTrigger(e) {
         let proc_text = document.getElementById('proc').value
-        soundBoard.addParts(FindParts(proc_text));
+        soundBoard.addParts(FindParts(proc_text, soundBoard));
         setParts(soundBoard.parts);
     }
 
