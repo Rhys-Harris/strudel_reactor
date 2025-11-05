@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import AdvancedSettings from './AdvancedSettings';
 import CPMSlider from './CPMSlider';
 import Part from './Part';
 import PlayButton from './PlayButton';
@@ -31,6 +32,7 @@ const SoundBoard = ({soundBoard}) => {
                         <StopButton />
                     </div>
                 </div>
+                <AdvancedSettings soundBoard={soundBoard} />
                 <div className="row" style={{padding: "2px"}}>
                     <CPMSlider soundBoard={soundBoard} />
                 </div>

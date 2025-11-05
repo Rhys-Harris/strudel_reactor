@@ -91,3 +91,8 @@ input[type="range"]::-webkit-slider-thumb {
   /* Vertical alignment */
   margin-top: -5px;
 }
+
+/* Add a little more room between inputs and labels */
+label {
+  margin-bottom: 5px;
+}
