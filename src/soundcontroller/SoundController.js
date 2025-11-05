@@ -1,4 +1,5 @@
 import { ProcAndPlay } from "../App";
+import SliderDefault from "./SliderDefault";
 import Part from "../components/Part";
 
 // The little board to the bottom right that will
@@ -7,6 +8,21 @@ export class SoundController {
     constructor() {
         // All the instruments it knows of
         this.parts = [];
+        this.sliderDefaults = [new SliderDefault("default", 0, 100)];
+    }
+
+    addSliderDefault(sliderDefault) {
+        // Attempt to edit an existing default,
+        // rather than create a new one
+        for (let i = 0; i < this.sliderDefaults.length; ++i) {
+            if (this.sliderDefaults[i].name === sliderDefault.name) {
+                this.sliderDefaults[i].lo = sliderDefault.lo;
+                this.sliderDefaults[i].hi = sliderDefault.hi;
+                return;
+            }
+        }
+
+        this.sliderDefaults.push(sliderDefault);
     }
 
     addParts(parts) {
