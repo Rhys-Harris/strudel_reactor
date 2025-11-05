@@ -11,6 +11,22 @@ export class SoundController {
         this.sliderDefaults = [new SliderDefault("default", 0, 100)];
     }
 
+    deleteSliderDefault(name) {
+        const newList = [];
+
+        // Attempt to edit an existing default,
+        // rather than create a new one
+        for (let i = 0; i < this.sliderDefaults.length; ++i) {
+            if (this.sliderDefaults[i].name === name) {
+                continue;
+            }
+
+            newList.push(this.sliderDefaults[i]);
+        }
+
+        this.sliderDefaults = newList;
+    }
+
     addSliderDefault(sliderDefault) {
         const newList = [];
 

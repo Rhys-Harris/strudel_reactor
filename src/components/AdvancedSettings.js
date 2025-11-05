@@ -42,6 +42,7 @@ const AdvancedSettings = ({soundBoard}) => {
                                     key={"sliderDefault" + slider.name}
                                     soundBoard={soundBoard}
                                     sliderDefault={slider}
+                                    setSliderDefaults={setSliderDefaults}
                                 />
                         )
                     )
