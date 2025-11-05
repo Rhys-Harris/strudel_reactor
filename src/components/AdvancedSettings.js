@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
 import SliderDefault from './SliderDefault';
+import { default as LogicalSliderDefault } from '../soundcontroller/SliderDefault';
 
 const AdvancedSettings = ({soundBoard}) => {
     const [hidden, setHidden] = useState(true);
+    const [sliderDefaults, setSliderDefaults] = useState([]);
+
+    useEffect(() => {
+        console.log("Use effect");
+        setSliderDefaults(soundBoard.sliderDefaults);
+    }, [soundBoard.sliderDefaults, setSliderDefaults])
 
     function hiddenTrigger(e) {
         if (hidden) {
@@ -15,7 +22,8 @@ const AdvancedSettings = ({soundBoard}) => {
     }
 
     function newDefaultTrigger(e) {
-
+        soundBoard.addSliderDefault(new LogicalSliderDefault("new", 0, 100));
+        setSliderDefaults(soundBoard.sliderDefaults);
     }
 
     return (
@@ -28,7 +36,7 @@ const AdvancedSettings = ({soundBoard}) => {
                     <button style={{width: "100%", height: "100%"}} onClick={newDefaultTrigger}>New Default</button>
                 </div>
                 {
-                    soundBoard.sliderDefaults.map(
+                    sliderDefaults.map(
                         (slider) => (
                                 <SliderDefault
                                     key={"sliderDefault" + slider.name}

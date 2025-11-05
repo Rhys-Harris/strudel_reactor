@@ -12,7 +12,7 @@ const SliderDefault = ({soundBoard, sliderDefault}) => {
                     <div className="input-group-prepend">
                         <div className="input-group-text">Min</div>
                     </div>
-                    <input type="text" className="form-control" placeholder="Low" value="0"></input>
+                    <input type="text" className="form-control" placeholder="Low" defaultValue="0"></input>
                 </div>
             </div>
             <div className="col-3">
@@ -20,7 +20,7 @@ const SliderDefault = ({soundBoard, sliderDefault}) => {
                     <div className="input-group-prepend">
                         <div className="input-group-text">Max</div>
                     </div>
-                    <input type="text" className="form-control" placeholder="High" value="100"></input>
+                    <input type="text" className="form-control" placeholder="High" defaultValue="100"></input>
                 </div>
             </div>
         </div>

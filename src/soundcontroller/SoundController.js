@@ -12,17 +12,27 @@ export class SoundController {
     }
 
     addSliderDefault(sliderDefault) {
+        const newList = [];
+
+        let alreadyExists = false;
+
         // Attempt to edit an existing default,
         // rather than create a new one
         for (let i = 0; i < this.sliderDefaults.length; ++i) {
             if (this.sliderDefaults[i].name === sliderDefault.name) {
                 this.sliderDefaults[i].lo = sliderDefault.lo;
                 this.sliderDefaults[i].hi = sliderDefault.hi;
-                return;
+                alreadyExists = true;
             }
+
+            newList.push(this.sliderDefaults[i]);
         }
 
-        this.sliderDefaults.push(sliderDefault);
+        if (!alreadyExists) {
+            newList.push(sliderDefault);
+        }
+
+        this.sliderDefaults = newList;
     }
 
     addParts(parts) {
