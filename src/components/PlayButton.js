@@ -1,9 +1,10 @@
 import { ProcAndPlay } from "../App";
 import play from "../assets/next.png"
 
-const PlayButton = ({}) => {
+const PlayButton = ({soundBoard}) => {
     function playButtonTrigger(e) {
-        ProcAndPlay();
+        soundBoard.running = true;
+        ProcAndPlay(soundBoard.running);
     }
 
     return (

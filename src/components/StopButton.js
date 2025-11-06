@@ -1,8 +1,9 @@
 import { StopAudio } from "../App";
 import stop from "../assets/pause.png"
 
-const StopButton = ({}) => {
+const StopButton = ({ soundBoard }) => {
     function stopButtonTrigger(e) {
+        soundBoard.running = false;
         StopAudio();
     }
 

@@ -26,13 +26,15 @@ export function applyPreprocessing() {
     globalEditor.setCode(proc_text_replaced)
 }
 
-export function ProcAndPlay() {
+export function ProcAndPlay(running) {
     if (globalEditor == null) {
         return;
     }
 
     applyPreprocessing();
-    evaluate();
+    if (running) {
+        evaluate();
+    }
 }
 
 export function StopAudio() {

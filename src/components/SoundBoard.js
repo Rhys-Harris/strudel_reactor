@@ -26,10 +26,10 @@ const SoundBoard = ({soundBoard}) => {
                         <UpdateButton soundBoard={soundBoard} setParts={setState} />
                     </div>
                     <div style={{width: "33%"}}>
-                        <PlayButton />
+                        <PlayButton soundBoard={soundBoard} />
                     </div>
                     <div style={{width: "33%"}}>
-                        <StopButton />
+                        <StopButton soundBoard={soundBoard} />
                     </div>
                 </div>
                 <AdvancedSettings soundBoard={soundBoard} />

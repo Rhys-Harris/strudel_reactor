@@ -10,12 +10,18 @@ const CPMSlider = ({soundBoard}) => {
         setSliderValue(value);
     }
 
+    function sliderChanger(e) {
+        const slider = e.target;
+        const value = slider.value;
+        setSliderValue(value);
+    }
+
     return (
         <>
             <label className="form-check-label text-center" htmlFor="cpmSlider">
                Cycles/Min: {sliderValue}
             </label>
-            <input step="0.01" min="1" max="160" type="range" className="form-input" onChange={sliderTrigger} id="cpmSlider" value={sliderValue}>
+            <input step="0.01" min="1" max="160" type="range" className="form-input" onChange={sliderChanger} onMouseUp={sliderTrigger} id="cpmSlider" value={sliderValue}>
             </input>
         </>
     );

@@ -9,6 +9,7 @@ export class SoundController {
         // All the instruments it knows of
         this.parts = [];
         this.sliderDefaults = [new SliderDefault("default", 0, 100)];
+        this.running = false;
     }
 
     deleteSliderDefault(name) {
@@ -93,12 +94,12 @@ export class SoundController {
 
     update() {
         console.log("Updating board!");
-        ProcAndPlay();
+        ProcAndPlay(this.running);
     }
 
     getCpmText() {
         const cpmSlider = document.getElementById("cpmSlider");
         const cpm = parseInt(cpmSlider.value);
-        return `setcps(${cpm}/60)\n\n`;
+        return `setcps(${cpm}/60/4)\n\n`;
     }
 }
