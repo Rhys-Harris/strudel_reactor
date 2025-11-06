@@ -22,7 +22,13 @@ export default class PartSlider {
         }
     }
 
-    recreate() {
-        return this.preText + this.value + this.postText;
+    // If we're a volume control, we need to factor in the global
+    // volume
+    recreate(globalVolume) {
+        if (this.name === "gain") {
+            return this.preText + this.value + "*" + globalVolume + this.postText;
+        } else {
+            return this.preText + this.value + this.postText;
+        }
     }
 }

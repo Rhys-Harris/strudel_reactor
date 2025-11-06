@@ -60,7 +60,7 @@ export class PartInfo {
 
     // Recreates the original text for this part but with
     // preprocessing changes.
-    recreate() {
+    recreate(globalVolume) {
         let header = this.name + ":\n";
         // let finalText = this.text;
         let finalText = "";
@@ -74,7 +74,7 @@ export class PartInfo {
             finalText = this.text;
         } else {
             for (let i = 0; i < this.sliders.length; ++i) {
-                finalText += this.sliders[i].recreate();
+                finalText += this.sliders[i].recreate(globalVolume);
             }
         }
 

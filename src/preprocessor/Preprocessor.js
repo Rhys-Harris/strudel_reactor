@@ -55,7 +55,7 @@ function updateParts(text, soundBoard) {
         // Skip uncessessary lines
         i += part.numLines;
         
-        const newText = part.recreate();
+        const newText = part.recreate(soundBoard.globalVolume);
         finalLines.push(newText);
     }
 

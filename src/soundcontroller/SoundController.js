@@ -13,6 +13,7 @@ export class SoundController {
             new SliderDefault("gain", 0, 10),
         ];
         this.running = false;
+        this.globalVolume = 1;
     }
 
     // Retains every item except the slider with the given name
@@ -109,6 +110,7 @@ export class SoundController {
 
     update() {
         console.log("Updating board!");
+        this.globalVolume = this.getVolume();
         ProcAndPlay(this.running);
     }
 
