@@ -1,5 +1,6 @@
 # Assignment 2
 Assignment of harrt002
+Repo on [GitHub](https://github.com/Rhys-Harris/strudel_reactor)
 
 # Getting Started with Create React App
 

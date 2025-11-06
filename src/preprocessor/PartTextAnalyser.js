@@ -125,7 +125,7 @@ function attemptCreateSlider(func, controls, soundBoard) {
 // Gives a volume slider to each individual intstrument
 function addDefaultVolumeControl(controls, soundBoard) {
     // If it already has one, don't add one
-    if (controlAlreadyExists("gain")) {
+    if (controlAlreadyExists("gain", controls)) {
         return;
     }
 
