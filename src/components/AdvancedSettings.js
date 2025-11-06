@@ -36,18 +36,22 @@ const AdvancedSettings = ({soundBoard}) => {
                 <div className="row" style={{padding: "2px", marginLeft: "10%", marginRight: "10%"}}>
                     <button style={{width: "100%", height: "100%"}} onClick={newDefaultTrigger}>New Default</button>
                 </div>
+<ul className="list-group">
                 {
                     sliderDefaults.map(
                         (slider) => (
+                              <li className="list-group-item">
                                 <SliderDefault
                                     key={"sliderDefault" + slider.name}
                                     soundBoard={soundBoard}
                                     sliderDefault={slider}
                                     setSliderDefaults={setSliderDefaults}
                                 />
+                                </li>
                         )
                     )
                 }
+</ul>
             </div>
         </div>
     );
