@@ -28,7 +28,7 @@ const AdvancedSettings = ({soundBoard}) => {
     }
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{padding: "1%"}}>
             <div className="row" style={{padding: "2px"}}>
                 <button style={{width: "100%", height: "100%"}} onClick={hiddenTrigger}>Advanced</button>
             </div>

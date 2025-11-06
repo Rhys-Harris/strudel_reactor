@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdvancedSettings from './AdvancedSettings';
 import CPMSlider from './CPMSlider';
+import MasterControlPanel from './MasterControlPanel';
 import Part from './Part';
 import PlayButton from './PlayButton';
 import StopButton from './StopButton';
@@ -9,33 +10,11 @@ import UpdateButton from './UpdateButton';
 const SoundBoard = ({soundBoard}) => {
     const [parts, setState] = useState([]);
 
-    const [sliderValue, setSliderValue] = useState(60);
-
-    function sliderTrigger(e) {
-        const slider = e.target;
-        const value = slider.value;
-        soundBoard.update();
-        setSliderValue(value);
-    }
-
     return (
         <div className="col-md-5">
             <div className="form-check container-fluid">
-                <div className="row" style={{padding: "2px"}}>
-                    <div style={{width: "33%"}}>
-                        <UpdateButton soundBoard={soundBoard} setParts={setState} />
-                    </div>
-                    <div style={{width: "33%"}}>
-                        <PlayButton soundBoard={soundBoard} />
-                    </div>
-                    <div style={{width: "33%"}}>
-                        <StopButton soundBoard={soundBoard} />
-                    </div>
-                </div>
+                <MasterControlPanel soundBoard={soundBoard} setParts={setState} />
                 <AdvancedSettings soundBoard={soundBoard} />
-                <div className="row" style={{padding: "2px"}}>
-                    <CPMSlider soundBoard={soundBoard} />
-                </div>
             </div>
             <div className="row" id="soundBoard">
                 {
