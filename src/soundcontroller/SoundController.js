@@ -112,9 +112,17 @@ export class SoundController {
         ProcAndPlay(this.running);
     }
 
-    getCpmText() {
+    getVolume() {
+        const volSlider = document.getElementById("volSlider");
+        return parseFloat(volSlider.value);
+    }
+
+    getCpm() {
         const cpmSlider = document.getElementById("cpmSlider");
-        const cpm = parseInt(cpmSlider.value);
-        return `setcps(${cpm}/60/4)\n\n`;
+        return parseFloat(cpmSlider.value);
+    }
+
+    getCpmText() {
+        return `setcps(${this.getCpm()}/60/4)\n\n`;
     }
 }

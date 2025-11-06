@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdvancedSettings from './AdvancedSettings';
 import CPMSlider from './CPMSlider';
+import VOLSlider from './VOLSlider';
 import Part from './Part';
 import PlayButton from './PlayButton';
 import StopButton from './StopButton';
@@ -28,6 +29,7 @@ const MasterControlPanel = ({soundBoard, setParts}) => {
                         <CPMSlider soundBoard={soundBoard} />
                     </div>
                     <div className="row">
+                        <VOLSlider soundBoard={soundBoard} />
                     </div>
                 </div>
             </div>
