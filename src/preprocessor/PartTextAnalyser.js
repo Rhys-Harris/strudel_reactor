@@ -13,12 +13,25 @@ function searchForControls(ast, soundBoard) {
     const startFunc = ast.children[0];
     attemptControl(startFunc, controls, soundBoard);
 
-    // Add a default volume slider
-    controls.push(new PartSlider("volume", "1.0", 0.0, 10.0, textBuffer + "\n\t.gain("));
-    controls[controls.length-1].postText = ")\n";
+    // Add a default volume slider if not already added
+    addDefaultVolumeControl(controls, soundBoard);
+    controls[controls.length-1].postText = textBuffer;
     textBuffer = "";
 
     return controls;
+}
+
+function addDefaultVolumeControl(controls, soundBoard) {
+    for (let i = 0; i < controls.length; ++i) {
+        // Already exists
+        if (controls[i].name === "gain") {
+            return;
+        }
+    }
+
+    const [lo, hi] = soundBoard.getSliderDefaultRange("gain");
+    controls.push(new PartSlider("gain", "1.0", lo, hi, textBuffer + "\n\t.gain("));
+    textBuffer = ")\n";
 }
 
 // Recusively searches a function def for possible controls

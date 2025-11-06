@@ -8,7 +8,10 @@ export class SoundController {
     constructor() {
         // All the instruments it knows of
         this.parts = [];
-        this.sliderDefaults = [new SliderDefault("default", 0, 100)];
+        this.sliderDefaults = [
+            new SliderDefault("default", 0, 100),
+            new SliderDefault("gain", 0, 10),
+        ];
         this.running = false;
     }
 
