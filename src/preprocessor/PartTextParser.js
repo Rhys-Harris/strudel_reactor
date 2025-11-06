@@ -166,6 +166,7 @@ export class PartTextParser {
         return rawValue;
     }
 
+    // Parses a value, not worrying about any chaining
     parseRawValue() {
         switch (this.curTok.kind) {
             case TOKEN_CODES.T_NUM:
@@ -173,6 +174,7 @@ export class PartTextParser {
             case TOKEN_CODES.T_STRING:
                 return new Node(NODE_CODES.N_STRING, this.curTok.text);
             case TOKEN_CODES.T_IDENTIFIER:
+                // Maybe it's part of a function call?
                 if (this.peekTok().kind === TOKEN_CODES.T_L_BRACE) {
                     return this.parseFuncCall();
                 } else {
