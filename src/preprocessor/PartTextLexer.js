@@ -39,6 +39,19 @@ function isWhitespace(c) {
     }
 }
 
+function isStringStarter(c) {
+    switch (c) {
+        case "\"":
+            return true;
+        case "'":
+            return true;
+        case "`":
+            return true;
+        default:
+            return false;
+    }
+}
+
 export class PartTextLexer {
     constructor(source) {
         // The text to lex
@@ -117,33 +130,34 @@ export class PartTextLexer {
                 tok.text = ",";
                 break;
 
-            // Full string
-            case '"':
-                let finalText = this.curChar;
-
-                this.nextChar();
-
-                // While the string hasn't been terminated
-                while (this.curChar !== '"') {
-                    finalText += this.curChar;
-                    this.nextChar();
-
-                    // Out of bounds of source?
-                    if (this.curChar === 0) {
-                        // Act like we finished with terminated string
-                        break;
-                    }
-                }
-
-                finalText += this.curChar;
-
-                tok.kind = TOKEN_CODES.T_STRING;
-                tok.text = finalText;
-                break;
-
             // Harder cases
             default:
-                if (isDigit(this.curChar)) { // Numbers
+                if (isStringStarter(this.curChar)) { // Strings
+                    // Want to end string with same type of character
+                    let stringStarter = this.curChar;
+
+                    let finalText = this.curChar;
+
+                    this.nextChar();
+
+                    // While the string hasn't been terminated
+                    while (this.curChar !== stringStarter) {
+                        finalText += this.curChar;
+                        this.nextChar();
+
+                        // Out of bounds of source?
+                        if (this.curChar === 0) {
+                            // Act like we finished with terminated string
+                            break;
+                        }
+                    }
+
+                    finalText += this.curChar;
+
+                    tok.kind = TOKEN_CODES.T_STRING;
+                    tok.text = finalText;
+
+                } else if (isDigit(this.curChar)) { // Numbers
                     let finalText = this.curChar;
 
                     this.nextChar();
