@@ -15,6 +15,7 @@ export class SoundController {
         this.running = false;
     }
 
+    // Retains every item except the slider with the given name
     deleteSliderDefault(name) {
         const newList = [];
 
@@ -23,6 +24,17 @@ export class SoundController {
                 continue;
             }
 
+            newList.push(this.sliderDefaults[i]);
+        }
+
+        this.sliderDefaults = newList;
+    }
+
+    // Used to force a react update
+    cycleSliderDefaults() {
+        const newList = [];
+
+        for (let i = 0; i < this.sliderDefaults.length; ++i) {
             newList.push(this.sliderDefaults[i]);
         }
 

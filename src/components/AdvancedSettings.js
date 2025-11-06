@@ -21,6 +21,7 @@ const AdvancedSettings = ({soundBoard}) => {
         }
     }
 
+    // Adds a new slider default that can be changed later
     function newDefaultTrigger(e) {
         soundBoard.addSliderDefault(new LogicalSliderDefault("new", 0, 100));
         setSliderDefaults(soundBoard.sliderDefaults);
