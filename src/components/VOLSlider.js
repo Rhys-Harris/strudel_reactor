@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 
+// Slider for changing the voluem globally
+
 const VOLSlider = ({soundBoard}) => {
     const [volume, setVolume] = useState(1);
 
+    // On finished updating
     function sliderTrigger(e) {
         const slider = e.target;
         const value = slider.value;
@@ -10,6 +13,7 @@ const VOLSlider = ({soundBoard}) => {
         setVolume(value);
     }
 
+    // While still updating
     function sliderChanger(e) {
         const slider = e.target;
         const value = slider.value;

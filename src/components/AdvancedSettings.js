@@ -2,27 +2,34 @@ import { useState, useEffect } from 'react';
 import SliderDefault from './SliderDefault';
 import { default as LogicalSliderDefault } from '../soundcontroller/SliderDefault';
 
+// Holds all extra settings that
+// may be unessesary for the regular
+// user. Namely, slider defaults
+
 const AdvancedSettings = ({soundBoard}) => {
+    // Since we want to hide the menu
+    // if the user doesn't care
     const [hidden, setHidden] = useState(true);
+
+    // All the controls (since it's dynamic)
     const [sliderDefaults, setSliderDefaults] = useState([]);
 
     useEffect(() => {
-        console.log("Use effect");
         setSliderDefaults(soundBoard.sliderDefaults);
     }, [soundBoard.sliderDefaults, setSliderDefaults])
 
+    // Flips the visibility (might need more logic later)
     function hiddenTrigger(e) {
         if (hidden) {
-
             setHidden(false);
         } else {
-
             setHidden(true);
         }
     }
 
     // Adds a new slider default that can be changed later
     function newDefaultTrigger(e) {
+        // Default name "new", default scale 0->100
         soundBoard.addSliderDefault(new LogicalSliderDefault("new", 0, 100));
         setSliderDefaults(soundBoard.sliderDefaults);
     }
@@ -36,22 +43,22 @@ const AdvancedSettings = ({soundBoard}) => {
                 <div className="row" style={{padding: "2px", marginLeft: "10%", marginRight: "10%"}}>
                     <button style={{width: "100%", height: "100%"}} onClick={newDefaultTrigger}>New Default</button>
                 </div>
-<ul className="list-group">
-                {
-                    sliderDefaults.map(
-                        (slider) => (
-                              <li className="list-group-item">
-                                <SliderDefault
-                                    key={"sliderDefault" + slider.name}
-                                    soundBoard={soundBoard}
-                                    sliderDefault={slider}
-                                    setSliderDefaults={setSliderDefaults}
-                                />
-                                </li>
+                <ul className="list-group">
+                    {
+                        sliderDefaults.map(
+                            (slider) => (
+                                  <li className="list-group-item">
+                                    <SliderDefault
+                                        key={"sliderDefault" + slider.name}
+                                        soundBoard={soundBoard}
+                                        sliderDefault={slider}
+                                        setSliderDefaults={setSliderDefaults}
+                                    />
+                                    </li>
+                            )
                         )
-                    )
-                }
-</ul>
+                    }
+                </ul>
             </div>
         </div>
     );

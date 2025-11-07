@@ -1,20 +1,25 @@
 import mute from "../assets/mute.png"
 import sound from "../assets/sound.png"
 
+// Used on each found instrument to
+// control whether it plays
+
 const MuteButton = ({part, soundBoard}) => {
     function muteButtonTrigger(e) {
         const btn = e.target;
         btn.checked = !btn.checked;
         part.muted = btn.checked;
 
+        // Change the image of the button,
+        // better showing the mute state
         const muteImage = document.getElementById(part.name+"MuteImage");
-
         if (btn.checked) {
             muteImage.setAttribute("src", mute);
         } else {
             muteImage.setAttribute("src", sound);
         }
 
+        // Apply the changes
         soundBoard.update();
     }
 

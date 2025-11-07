@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
 import AdvancedSettings from './AdvancedSettings';
-import CPMSlider from './CPMSlider';
 import MasterControlPanel from './MasterControlPanel';
 import Part from './Part';
-import PlayButton from './PlayButton';
-import StopButton from './StopButton';
-import UpdateButton from './UpdateButton';
+
+// The entire control panel that is used
+// to alter the song
 
 const SoundBoard = ({soundBoard}) => {
-    const [parts, setState] = useState([]);
+    const [parts, setParts] = useState([]);
 
     return (
         <div className="col-md-5">
             <div className="form-check container-fluid">
-                <MasterControlPanel soundBoard={soundBoard} setParts={setState} />
+                <MasterControlPanel soundBoard={soundBoard} setParts={setParts} />
                 <AdvancedSettings soundBoard={soundBoard} />
             </div>
             <div className="row" id="soundBoard">

@@ -1,6 +1,8 @@
 import { ProcAndPlay } from "../App";
 import play from "../assets/next.png"
 
+// The global play button
+
 const PlayButton = ({soundBoard}) => {
     function playButtonTrigger(e) {
         soundBoard.running = true;

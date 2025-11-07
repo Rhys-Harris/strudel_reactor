@@ -1,6 +1,8 @@
 import { StopAudio } from "../App";
 import stop from "../assets/pause.png"
 
+// Stops all music playing
+
 const StopButton = ({ soundBoard }) => {
     function stopButtonTrigger(e) {
         soundBoard.running = false;

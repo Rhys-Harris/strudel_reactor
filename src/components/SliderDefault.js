@@ -1,11 +1,19 @@
+// This component is used to set the range for
+// sliders that are dynamically created.
+// For example, a slider default with the range
+// 0->100 could be created with the name room.
+// Then, any room sliders dynamically created
+// for instruments would inherit this range.
+
 const SliderDefault = ({soundBoard, sliderDefault, setSliderDefaults}) => {
+    // No longer need this default
     function deleteButtonTrigger(e) {
         soundBoard.deleteSliderDefault(sliderDefault.name);
         setSliderDefaults(soundBoard.sliderDefaults);
     }
 
+    // What effect does this apply to?
     function nameChangeTrigger(e) {
-        console.log("a");
         const input = e.target;
         const value = input.value;
         sliderDefault.name = value;
@@ -13,8 +21,8 @@ const SliderDefault = ({soundBoard, sliderDefault, setSliderDefaults}) => {
         setSliderDefaults(soundBoard.sliderDefaults);
     }
 
+    // Lowest value
     function minChangeTrigger(e) {
-        console.log("b");
         const input = e.target;
         const value = input.value;
         sliderDefault.lo = parseFloat(value);
@@ -22,8 +30,8 @@ const SliderDefault = ({soundBoard, sliderDefault, setSliderDefaults}) => {
         setSliderDefaults(soundBoard.sliderDefaults);
     }
 
+    // Highest value
     function maxChangeTrigger(e) {
-        console.log("c");
         const input = e.target;
         const value = input.value;
         sliderDefault.hi = parseFloat(value);
@@ -58,7 +66,7 @@ const SliderDefault = ({soundBoard, sliderDefault, setSliderDefaults}) => {
                 </div>
             </div>
         </div>
-        );
+    );
 };
 
 export default SliderDefault;
