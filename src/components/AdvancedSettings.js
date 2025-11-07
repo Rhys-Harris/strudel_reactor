@@ -47,7 +47,7 @@ const AdvancedSettings = ({soundBoard}) => {
                     {
                         sliderDefaults.map(
                             (slider) => (
-                                  <li className="list-group-item">
+                                  <li className="list-group-item" key={"sliderDefaultLi" + slider.name}>
                                     <SliderDefault
                                         key={"sliderDefault" + slider.name}
                                         soundBoard={soundBoard}

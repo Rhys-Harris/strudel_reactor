@@ -48,8 +48,6 @@ let allowEvaluate = true;
 let evaluationPending = false;
 
 function evaluate() {
-    console.log(allowEvaluate, evaluationPending);
-
     // Someone else will trigger the evaluation,
     // therefore, don't worry
     if (evaluationPending) {
@@ -82,75 +80,74 @@ function evaluate() {
 }
 
 export default function StrudelDemo() {
+    const hasRun = useRef(false);
 
-const hasRun = useRef(false);
+    useEffect(() => {
+        if (hasRun.current) {
+            return;
+        }
 
-useEffect(() => {
-    if (hasRun.current) {
-        return;
-    }
+        document.addEventListener("d3Data", handleD3Data);
+        console_monkey_patch();
+        hasRun.current = true;
 
-    document.addEventListener("d3Data", handleD3Data);
-    console_monkey_patch();
-    hasRun.current = true;
+        //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
+            
+        //init canvas
+        const canvas = document.getElementById('roll');
+        canvas.width = canvas.width * 2;
+        canvas.height = canvas.height * 2;
+        const drawContext = canvas.getContext('2d');
+        const drawTime = [-2, 2]; // time window of drawn haps
+        globalEditor = new StrudelMirror({
+            defaultOutput: webaudioOutput,
+            getTime: () => getAudioContext().currentTime,
+            transpiler,
+            root: document.getElementById('editor'),
+            drawTime,
+            onDraw: (haps, time) => {
+                drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 })
+            },
+            prebake: async () => {
+                initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
+                const loadModules = evalScope(
+                    import('@strudel/core'),
+                    import('@strudel/draw'),
+                    import('@strudel/mini'),
+                    import('@strudel/tonal'),
+                    import('@strudel/webaudio'),
+                );
+                await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
+            },
+        });
+            
+        document.getElementById('proc').value = stranger_tune
+        applyPreprocessing();
+    }, []);
 
-    //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
-        
-    //init canvas
-    const canvas = document.getElementById('roll');
-    canvas.width = canvas.width * 2;
-    canvas.height = canvas.height * 2;
-    const drawContext = canvas.getContext('2d');
-    const drawTime = [-2, 2]; // time window of drawn haps
-    globalEditor = new StrudelMirror({
-        defaultOutput: webaudioOutput,
-        getTime: () => getAudioContext().currentTime,
-        transpiler,
-        root: document.getElementById('editor'),
-        drawTime,
-        onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
-        prebake: async () => {
-            initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
-            const loadModules = evalScope(
-                import('@strudel/core'),
-                import('@strudel/draw'),
-                import('@strudel/mini'),
-                import('@strudel/tonal'),
-                import('@strudel/webaudio'),
-            );
-            await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
-        },
-    });
-        
-    document.getElementById('proc').value = stranger_tune
-    applyPreprocessing();
-}, []);
+    return (
+        <div>
+            <main>
 
-return (
-    <div>
-        <main>
-
-            <div className="container-fluid">
-                <div className="row text-center">
-                    <h2>Strudel Demo</h2>
-                </div>
-                <div className="row">
-                <div className="col-md-7" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
-                    <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <textarea className="form-control" rows="14" id="proc" style={{resize: 'none'}} ></textarea>
+                <div className="container-fluid">
+                    <div className="row text-center">
+                        <h2>Strudel Demo</h2>
                     </div>
-                    <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
+                    <div className="row">
+                    <div className="col-md-7" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
+                        <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <textarea className="form-control" rows="14" id="proc" style={{resize: 'none'}} ></textarea>
+                        </div>
+                        <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <div id="editor" />
+                            <div id="output" />
+                        </div>
                     </div>
+                    <SoundBoard soundBoard={soundBoard}></SoundBoard>
                 </div>
-                <SoundBoard soundBoard={soundBoard}></SoundBoard>
-            </div>
-            </div>
-            <canvas id="roll" style={{backgroundColor: "red"}}></canvas>
-        </main >
-    </div >
-);
-
-
+                </div>
+                <canvas id="roll" style={{backgroundColor: "red"}}></canvas>
+            </main >
+        </div >
+    );
 }
