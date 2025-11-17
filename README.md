@@ -44,18 +44,30 @@ These are the controls that appear once the `update board` button is pressed.
 Each columns of controls will include the name of the effected instrument.
 
 ### Mute
-TODO: Fill out
+Each instrument comes with a mute button automatically.
+Simply press is to toggle whether an instrument plays,
 
 ### Permanent Volume Slider
+Each instrument comes with a gain slider automatically.
+If the instrument didn't already have one, it defaults to gain of 1.0.
+Otherwise, it works exactly like other dynamic sliders.
 
 ### Dynamic Sliders
-TODO: Fill out
+An instrument will attempt to create as many dynamic sliders as it can.
+For example, a slider for `lpf`, `room`, and `gain` might be created.
+These sliders update the music after letting go of the knob.
+The range for these sliders can be pre-picked (described below).
 
 ## Advanced Controls
 These controls are specifically hidden, as they may be unnecessary to most users.
 
 ### Slider Defaults
-TODO: Fill out
+A slider default allows you to define the range of newly created sliders.
+For example, the range for `lpf` can be set to `0` to `1000`.
+This will override the default logic, allowing for more customisation.
+
+### Save / Load
+The slider defaults can be saved to and loaded from local storage.
 
 ## Video Bonus Points
 TODO: Beg
