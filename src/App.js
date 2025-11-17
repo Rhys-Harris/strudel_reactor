@@ -134,7 +134,7 @@ export default function StrudelDemo() {
                         <h2>Strudel Demo</h2>
                     </div>
                     <div className="row">
-                    <div className="col-md-7" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
+                    <div className="col-md-6" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
                         <div className="row" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                             <textarea className="form-control" rows="14" id="proc" style={{resize: 'none'}} ></textarea>
                         </div>
@@ -146,7 +146,6 @@ export default function StrudelDemo() {
                     <SoundBoard soundBoard={soundBoard}></SoundBoard>
                 </div>
                 </div>
-                <canvas id="roll" style={{backgroundColor: "red"}}></canvas>
             </main >
         </div >
     );

@@ -9,10 +9,22 @@ import Part from './Part';
 const SoundBoard = ({soundBoard}) => {
     const [parts, setParts] = useState([]);
 
+
+/*canvas {
+  background-color: rgb(27, 27, 27) !important;
+}*/
+
     return (
-        <div className="col-md-5">
+        <div className="col-md-6">
             <div className="form-check container-fluid">
-                <MasterControlPanel soundBoard={soundBoard} setParts={setParts} />
+                <div className="row" style={{height: "20%"}}>
+                    <div className="col-md-4">
+                        <MasterControlPanel soundBoard={soundBoard} setParts={setParts} />
+                    </div>
+                    <div className="col-md-8">
+                        <canvas id="roll" style={{backgroundColor: "rgb(27, 27, 27)", width: "100%", height: "100%"}}></canvas>
+                    </div>
+                </div>
                 <AdvancedSettings soundBoard={soundBoard} />
             </div>
             <div className="row" id="soundBoard">

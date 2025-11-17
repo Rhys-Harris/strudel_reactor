@@ -14,17 +14,19 @@ import UpdateButton from './UpdateButton';
 const MasterControlPanel = ({soundBoard, setParts}) => {
     return (
         <>
-            <div className="row" style={{height: "10%", padding: "2px"}}>
-                <div style={{width: "25%"}}>
+            <div className="row" style={{height: "50%", padding: "2px"}}>
+                <div style={{width: "33%"}}>
                     <UpdateButton soundBoard={soundBoard} setParts={setParts} />
                 </div>
-                <div style={{width: "25%"}}>
+                <div style={{width: "33%"}}>
                     <PlayButton soundBoard={soundBoard} />
                 </div>
-                <div style={{width: "25%"}}>
+                <div style={{width: "33%"}}>
                     <StopButton soundBoard={soundBoard} />
                 </div>
-                <div style={{width: "25%"}}>
+            </div>
+            <div className="row" style={{height: "50%", padding: "2px"}}>
+                <div style={{width: "100%"}}>
                     <div className="row">
                         <CPMSlider soundBoard={soundBoard} />
                     </div>

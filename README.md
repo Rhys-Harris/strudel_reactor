@@ -6,9 +6,8 @@ Demonstration Video:
 
 ## TODO
 1. Add demonstration video
-2. Ability to export and load slider defaults
-3. Fix sizing of control buttons
-4. Utilise D3 graph
+2. Fix sizing of control buttons
+3. Utilise D3 graph
 
 ## Global Controls
 ### Play & Pause
