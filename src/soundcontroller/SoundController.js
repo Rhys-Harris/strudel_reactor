@@ -16,6 +16,17 @@ export class SoundController {
         this.globalVolume = 1;
     }
 
+    // Takes all current slider defaults
+    // and creates a JSON string from them
+    dumpSliderDefaults() {
+        
+    }
+
+    // Takes in the string (JSON) and loads
+    // all the slider defaults from it
+    loadSliderDefaults(strSliderDefaults) {
+    }
+
     // Retains every item except the slider with the given name
     deleteSliderDefault(name) {
         const newList = [];

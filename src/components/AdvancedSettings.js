@@ -36,10 +36,14 @@ const AdvancedSettings = ({soundBoard}) => {
 
     // Saves the slider default preferences to localstorage
     function saveDefaultTrigger(e) {
+        const strSliderDefaults = soundBoard.dumpSliderDefaults();
+        localStorage.setItem("sliderDefaults", strSliderDefaults);
     }
 
     // Loads slider defaults from localstorage
     function loadDefaultTrigger(e) {
+        const strSliderDefaults = localStorage.getItem("sliderDefaults");
+        soundBoard.loadSliderDefaults(strSliderDefaults);
     }
 
     return (
