@@ -7,7 +7,7 @@ import { initAudioOnFirstClick } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
-import { stranger_tune } from './tunes';
+import { stranger_tune, mtaf_tune, egypt_tune } from './tunes';
 import console_monkey_patch, { clearD3Data, getD3Data } from './console-monkey-patch';
 import { FindParts, PreprocessText } from './preprocessor/Preprocessor.js'
 import { SoundController } from './soundcontroller/SoundController';
@@ -130,7 +130,7 @@ export default function StrudelDemo() {
         });
             
         // Put in starting song
-        document.getElementById('proc').value = stranger_tune
+        document.getElementById('proc').value = egypt_tune
         applyPreprocessing();
 
         // Init d3 graph
