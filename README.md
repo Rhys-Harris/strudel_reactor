@@ -2,7 +2,14 @@
 EmailID: harrt002
 Remote Repo: [GitHub](https://github.com/Rhys-Harris/strudel_reactor)
 StudentID: 110443215
-Demonstration Video: TODO: Add demonstration video
+Demonstration Video: 
+
+## TODO
+1. Add demonstration video
+2. Fix instrument sizing on control panel
+3. Ability to export and load slider defaults
+4. Fix sizing of control buttons
+5. Utilise D3 graph
 
 ## Global Controls
 ### Play & Pause
