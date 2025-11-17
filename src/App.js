@@ -18,7 +18,7 @@ let globalEditor = null;
 let soundBoard = new SoundController();
 
 const handleD3Data = (event) => {
-    console.log(event.detail);
+    // console.log(event.detail);
 };
 
 export function applyPreprocessing() {

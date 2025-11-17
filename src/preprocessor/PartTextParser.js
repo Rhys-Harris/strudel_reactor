@@ -83,6 +83,13 @@ export class PartTextParser {
         funcCall.children.push(new Node(NODE_CODES.N_L_BRACE, this.curTok.text));
         this.nextTok();
 
+        // Check if there are no args?
+        // Closing brace
+        if (this.curTok.kind === TOKEN_CODES.T_R_BRACE) {
+            funcCall.children.push(new Node(NODE_CODES.N_R_BRACE, this.curTok.text));
+            return funcCall;
+        }
+
         // Argument within the brackets
         const value = this.parseValue();
         if (value.kind === NODE_CODES.N_ILLEGAL) {
