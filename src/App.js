@@ -8,7 +8,7 @@ import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
-import console_monkey_patch, { getD3Data } from './console-monkey-patch';
+import console_monkey_patch, { clearD3Data, getD3Data } from './console-monkey-patch';
 import { FindParts, PreprocessText } from './preprocessor/Preprocessor.js'
 import { SoundController } from './soundcontroller/SoundController';
 import SoundBoard from './components/SoundBoard';
@@ -19,6 +19,7 @@ let soundBoard = new SoundController();
 
 const handleD3Data = (event) => {
     // console.log(event.detail);
+    console.log(event.detail.length);
 };
 
 export function applyPreprocessing() {
@@ -113,6 +114,7 @@ export default function StrudelDemo() {
             onDraw: (haps, time) => {
                 drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 })
                 buildGraph(getD3Data());
+                clearD3Data();
             },
             prebake: async () => {
                 initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)

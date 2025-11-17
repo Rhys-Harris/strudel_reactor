@@ -1,67 +1,31 @@
 export const stranger_tune = `
-samples('github:algorave-dave/samples');
-samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json');
-samples('https://raw.githubusercontent.com/Mittans/tidal-drum-machines/main/machines/tidal-drum-machines.json');
-
-melody:
-    note("{ [~ ~ d3 ds3]  [fs3 g3 [fs3 g3 fs3] ds3] a3 a3 [a3 [d3 ds3]] [fs3 g3 [fs3 g3 fs3] ds3] [fs3 d3 ~ d3] d3}%8")
-    .sound("gm_sitar")
-    .room(0.5)
+base12String:
+    note("{d3 a3 d4 [g4, d4] d3 [gb4, d4] d3 d4 c3 g3 d3 b2 g3 d3 g2 d3 }%8")
+    .sound("supersaw")
     .log();
 
-backup:
-    note("{ ~ ~ a2 a2 as2 ~ ~ d2}%8")
-    .sound("gm_sitar")
-    .room(0.75);
-
-bass2:
-   note("{ c2 d2 ds2 f2 }")
-    .sound("sawtooth")
-    .lpf(700);
+high12String:
+    note("{d4 a4 d4 [g4, d4] d4 [gb4, d4] d4 d4 c4 g4 d4 b3 g4 d4 g3 d4 }%8")
+    .sound("supersaw");
 
 bass:
-   note("{ c2 d2 ds2 f2 }")
-    .sound("gm_fretless_bass")
-    .gain(1.5)
-    .room(0.5);
+    note("{d2 d2 d2 d2 c2 [c2 b1] b1 g1 }%4")
+    .sound("supersaw")
+    .postgain(2)
+    .room(0.6)
+    .lpf(700)
+    .room(0.4);
 
-chords:
-   note("{ [c3, c4] [d3, d4] [ds3, ds4] [f3, f4] }")
-    .sound("gm_synth_strings_2")
-    .gain(0.6)
-    .room(0.5);
-
-chords_high:
-   note("{ c5 d5 ds5 f5 }")
-    .sound("gm_synth_strings_2")
-    .gain(0.6)
-    .room(0.5);
-
-chord_harmony:
-   note("{ c5 fs4 g4 d3 }")
-    .sound("gm_synth_strings_2")
-    .gain(0.6)
-    .room(0.5);
-
-flute:
-    note("{ [d5 ~ ~] ~ ~ ~ ~ ~ ~ [d5 c5 [b4 c5] g5 [fs5 g5]]}%8")
-      .room(0.5)
-    .sound("gm_flute");
-
-bassdrum:
-   s("bd*8")
-     .bank("RolandTR909")
-     .room(0.5);
-
-clap:
-   s("{~ cp}*4")
-     .bank("RolandTR909")
-     .room(0.5);
-
-tick:
-   s("{~ ~ sh sh}*8")
-     .bank("RolandTR808")
-     .gain(0.8)
-     .room(0.3);
-
-`;
+brad:
+    note(
+      \`
+      {
+      [e3 gb3] a3 a3 a3 b3 b3 a3 a3 a3 a3 g3 gb3 d3 d3 d3 d3
+      [e3 gb3] a3 a3 a3 b3 b3 a3 a3 b3 c4 [c4 d4] d4 [c4 b3] b3 b3 b3
+      [e3 gb3] a3 a3 a3 b3 b3 a3 a3 a3 a3 g3 gb3 g3 g3 g3 g3
+      d4 g4 g4 a4 a4 d5 d5 a4 gb4 g4 a4 a4 b4 b4 b4 b4
+      }%8
+      \`)
+    .sound("supersaw")
+    .postgain(2);
+// @version 1.2`;

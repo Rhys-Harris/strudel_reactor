@@ -1,30 +1,41 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
 
 
-function filterRawStrudelData(data) {
-    const newData = [];
+const longTermNotes = [
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0,
+];
 
-    // Converts text into the correct index
-    // in final data
-    const noteBucket = {
-        "c": 0,
-        "cs": 1, "c#": 1, "db": 1, "df": 1,
-        "d": 2,
-        "ds": 3, "d#": 3, "eb": 3, "ef": 3,
-        "e": 4,
-        "f": 5,
-        "fs": 6, "f#": 6, "gb": 6, "gf": 6,
-        "g": 7,
-        "gs": 8, "g#": 8, "ab": 8, "af": 8,
-        "a": 9,
-        "as": 10, "a#": 10, "bb": 10, "bf": 10,
-        "b": 11,
-    };
+// Converts text into the correct index
+// in final data
+const noteBucket = {
+    "c": 0,
+    "cs": 1, "c#": 1, "db": 1, "df": 1,
+    "d": 2,
+    "ds": 3, "d#": 3, "eb": 3, "ef": 3,
+    "e": 4,
+    "f": 5,
+    "fs": 6, "f#": 6, "gb": 6, "gf": 6,
+    "g": 7,
+    "gs": 8, "g#": 8, "ab": 8, "af": 8,
+    "a": 9,
+    "as": 10, "a#": 10, "bb": 10, "bf": 10,
+    "b": 11,
+};
 
+// Decay old data
+function shrinkLastData() {
     for (let i = 0; i < 12; ++i) {
-        // Start with 0 count for each note
-        newData.push(0);
+        // This value seems to produce
+        // best decay results
+        longTermNotes[i] *= 0.993;
     }
+}
+
+function filterRawStrudelData(data) {
+    shrinkLastData();
 
     for (let i = 0; i < data.length; ++i) {
         // Find the word "note", and get the
@@ -34,17 +45,15 @@ function filterRawStrudelData(data) {
         const components = match[1].match(/^([a-g][fsb#]*)(\d+)$/);
 
         const note = components[1];
-        const octave = components[2];
+        // const octave = components[2];
 
         const bucket = noteBucket[note];
 
         // Count this note
-        newData[bucket] = newData[bucket]+1;
+        longTermNotes[bucket] = longTermNotes[bucket]+1;
     }
 
-    console.log("newData:", newData);
-
-    return newData;
+    return longTermNotes;
 }
 
 export function buildGraph(data) {
@@ -66,14 +75,15 @@ export function initGraph() {
         svg.select("*").remove();
 
         // Get the range of the data we have
-        const dataRange = d3.extent(data, (d, i) => d);
-        const dataMax = dataRange[1];
+        // const dataRange = d3.extent(data, (d, i) => d);
+        // const dataMax = dataRange[1];
+        const dataMax = 5;
 
         // Set up phys -> visual scaling
         // for both axis
         const yScale = d3.scaleLinear()
             .domain([0, dataMax])
-            .range([h, 0]);
+            .range([0, h]);
 
         const xScale = d3.scaleLinear()
             .domain([0, data.length])

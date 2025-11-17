@@ -6,8 +6,6 @@ Demonstration Video:
 
 ## TODO
 1. Add demonstration video
-2. Fix sizing of control buttons
-3. Utilise D3 graph
 
 ## Global Controls
 ### Play & Pause

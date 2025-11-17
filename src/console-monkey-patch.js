@@ -18,9 +18,9 @@ export default function console_monkey_patch() {
             //Then remove the oldest values once we've hit 100.
             logArray.push(args.join(" ").replace("%c[hap] ", ""));
 
-            if (logArray.length > 100) {
-                logArray.splice(0, 1);
-            }
+            // if (logArray.length > 100) {
+            //     logArray.splice(0, 1);
+            // }
             //Dispatch a customevent we can listen to in App.js
             const event = new CustomEvent("d3Data", { detail: [...logArray] });
             document.dispatchEvent(event);
@@ -29,6 +29,11 @@ export default function console_monkey_patch() {
         originalLog.apply(console, args);
     };
 
+}
+
+// Once d3 data is used, clear it to make space
+export function clearD3Data() {
+    logArray.length = 0;
 }
 
 export function getD3Data() {
