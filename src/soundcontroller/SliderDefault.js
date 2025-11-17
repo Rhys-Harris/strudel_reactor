@@ -6,4 +6,8 @@ export default class SliderDefault {
         this.lo = lo;
         this.hi = hi;
     }
+
+    dump() {
+        return `{"name":"${this.name}", "lo":${this.lo}, "hi":${this.hi}}`;
+    }
 }

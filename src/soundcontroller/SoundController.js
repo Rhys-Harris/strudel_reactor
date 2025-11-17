@@ -19,7 +19,26 @@ export class SoundController {
     // Takes all current slider defaults
     // and creates a JSON string from them
     dumpSliderDefaults() {
-        
+        if (this.sliderDefaults.length === 0) {
+            // Empty list
+            return "[]";
+        }
+
+        // Start the list
+        let out = "["
+
+        // Add first item outside of loop
+        // (this helps prevent trailing comma)
+        out += this.sliderDefaults[0].dump();
+
+        for (let i = 1; i < this.sliderDefaults.length; ++i) {
+            // Dump each slider
+            out += "," + this.sliderDefaults[i].dump();
+        }
+
+        // End and return the list
+        out += "]";
+        return out;
     }
 
     // Takes in the string (JSON) and loads
