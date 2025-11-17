@@ -12,7 +12,7 @@ import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import { FindParts, PreprocessText } from './preprocessor/Preprocessor.js'
 import { SoundController } from './soundcontroller/SoundController';
 import SoundBoard from './components/SoundBoard';
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+import { buildGraph, initGraph } from './Grapher.js';
 
 let globalEditor = null;
 let soundBoard = new SoundController();
@@ -112,6 +112,7 @@ export default function StrudelDemo() {
             // Draw what notes are being played on canvas
             onDraw: (haps, time) => {
                 drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 })
+                buildGraph(getD3Data());
             },
             prebake: async () => {
                 initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
@@ -131,74 +132,7 @@ export default function StrudelDemo() {
         applyPreprocessing();
 
         // Init d3 graph
-        const svg = d3.select("svg");
-
-        let w = svg.node().getBoundingClientRect().width;
-        let h = svg.node().getBoundingClientRect().height;
-
-        console.log("Graph dim:", w, h);
-
-        function buildGraph(data) {
-            console.log("graphData:", data);
-            console.log("svg", svg);
-            svg.select("*").remove();
-
-            // Get the range of the data we have
-            const dataRange = d3.extent(data, (d, i) => d);
-            const dataMax = dataRange[1];
-
-            // Set up phys -> visual scaling
-            // for both axis
-            const yScale = d3.scaleLinear()
-                .domain([0, dataMax])
-                .range([h, 0]);
-
-            const xScale = d3.scaleLinear()
-                .domain([0, data.length])
-                .range([0, w])
-
-            console.log(xScale(5));
-            console.log(yScale(5));
-
-            // How wide each bar is
-            // (plus gaps)
-            const barMargin = 10;
-            const barWidth = w / data.length;
-
-            // Add a new chart
-            const chartGroup = svg.append('g')
-                .classed("chartGroup", true)
-
-            // Add all the bars
-            let barGroups = chartGroup
-                .selectAll('g')
-                .data(data);
-
-            // Move the bars to correct location
-            let newBarGroups = barGroups.enter()
-                .append('g')
-                // .attr("transform", (d, i) => {
-                //     return `translate(${xScale(i)}, ${yScale(d)})`;
-                // });
-
-            // Actual visual rectangle
-            newBarGroups
-                .append("rect")
-                .attr("x", (d, i) => xScale(i))
-                .attr("y", 0)
-                .attr("height", (d, i) => yScale(d)) // Start at 0 height (will grow)
-                .attr("width", barWidth) // Max possible width
-                // .style("fill", (d, i) => {
-                //     return `hsl(240, 100%, ${(100-(d.totalItems / dataMax * 80))}%`;
-                // })
-                .style("fill", (d, i) => {
-                    return `rgb(255, 0, 255)`;
-                })
-        }
-
-        // Build graph (no data at this point)
-        // buildGraph(getD3Data());
-        buildGraph([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        initGraph();
     }, []);
 
     return (

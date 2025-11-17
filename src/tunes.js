@@ -6,7 +6,8 @@ samples('https://raw.githubusercontent.com/Mittans/tidal-drum-machines/main/mach
 melody:
     note("{ [~ ~ d3 ds3]  [fs3 g3 [fs3 g3 fs3] ds3] a3 a3 [a3 [d3 ds3]] [fs3 g3 [fs3 g3 fs3] ds3] [fs3 d3 ~ d3] d3}%8")
     .sound("gm_sitar")
-    .room(0.5);
+    .room(0.5)
+    .log();
 
 backup:
     note("{ ~ ~ a2 a2 as2 ~ ~ d2}%8")

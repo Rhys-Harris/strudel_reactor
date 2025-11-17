@@ -17,9 +17,9 @@ const SoundBoard = ({soundBoard}) => {
                     <div className="col-md-4">
                         <MasterControlPanel soundBoard={soundBoard} setParts={setParts} />
                     </div>
-                    <div className="col-md-8">
-                        <canvas id="roll" style={{backgroundColor: "rgb(27, 27, 27)", width: "50%", height: "100%"}}></canvas>
-                        <svg id="graph" style={{backGroundColor: "red", width: "50%", height: "100%"}}></svg>
+                    <div className="col-md-8" style={{position: "relative", paddingLeft:"10%"}}>
+                        <canvas id="roll" style={{backgroundColor: "rgb(27, 27, 27)", width: "100%"}}></canvas>
+                        <svg id="graph" style={{backGroundColor: "red", width: "100%", position: 'absolute', left:"0"}}></svg>
                     </div>
                 </div>
                 <AdvancedSettings soundBoard={soundBoard} />
