@@ -44,6 +44,29 @@ export class SoundController {
     // Takes in the string (JSON) and loads
     // all the slider defaults from it
     loadSliderDefaults(strSliderDefaults) {
+        // Clear old values
+        this.sliderDefaults = [];
+
+        // There was no localStorage value
+        if (strSliderDefaults == null || strSliderDefaults === undefined) {
+            return;
+        }
+
+        // Expect JSON encoding
+        const sliderList = JSON.parse(strSliderDefaults);
+
+        // Turn each obj into an actual slider
+        for (let i = 0; i < sliderList.length; ++i) {
+            const obj = sliderList[i];
+
+            this.sliderDefaults.push(
+                new SliderDefault(
+                    obj.name,
+                    obj.lo,
+                    obj.hi,
+                ),
+            );
+        }
     }
 
     // Retains every item except the slider with the given name

@@ -44,6 +44,9 @@ const AdvancedSettings = ({soundBoard}) => {
     function loadDefaultTrigger(e) {
         const strSliderDefaults = localStorage.getItem("sliderDefaults");
         soundBoard.loadSliderDefaults(strSliderDefaults);
+
+        // Ensure we update UI
+        setSliderDefaults(soundBoard.sliderDefaults);
     }
 
     return (
