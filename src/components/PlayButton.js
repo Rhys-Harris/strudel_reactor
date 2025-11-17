@@ -1,9 +1,21 @@
 import { ProcAndPlay } from "../App";
 import play from "../assets/next.png"
+import { useEffect } from "react";
 
 // The global play button
 
 const PlayButton = ({soundBoard}) => {
+    useEffect(() => {
+        document.addEventListener("keypress", (e) => {
+            // Check for 'p' key press
+            if (e.code !== "KeyP") {
+                return;
+            }
+
+            playButtonTrigger(e);
+        })
+    }, [])
+
     function playButtonTrigger(e) {
         soundBoard.running = true;
         ProcAndPlay(soundBoard.running);

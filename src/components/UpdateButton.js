@@ -10,6 +10,15 @@ import update from "../assets/update.png";
 const UpdateButton = ({soundBoard, setParts}) => {
     useEffect(() => {
         setParts(soundBoard.parts);
+
+        document.addEventListener("keypress", (e) => {
+            // Check for 'u' key press
+            if (e.code !== "KeyU") {
+                return;
+            }
+
+            updateButtonTrigger(e);
+        })
     }, [soundBoard.parts, setParts])
 
     function updateButtonTrigger(e) {
