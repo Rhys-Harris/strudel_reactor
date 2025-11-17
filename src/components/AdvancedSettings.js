@@ -34,6 +34,14 @@ const AdvancedSettings = ({soundBoard}) => {
         setSliderDefaults(soundBoard.sliderDefaults);
     }
 
+    // Saves the slider default preferences to localstorage
+    function saveDefaultTrigger(e) {
+    }
+
+    // Loads slider defaults from localstorage
+    function loadDefaultTrigger(e) {
+    }
+
     return (
         <div className="container-fluid" style={{padding: "1%"}}>
             <div className="row" style={{padding: "2px"}}>
@@ -41,7 +49,15 @@ const AdvancedSettings = ({soundBoard}) => {
             </div>
             <div hidden={hidden}>
                 <div className="row" style={{padding: "2px", marginLeft: "10%", marginRight: "10%"}}>
-                    <button style={{width: "100%", height: "100%"}} onClick={newDefaultTrigger}>New Default</button>
+                    <div className="col">
+                        <button onClick={newDefaultTrigger} style={{width: "100%"}}>New Default</button>
+                    </div>
+                    <div className="col">
+                        <button onClick={saveDefaultTrigger} style={{width: "100%"}}>Save</button>
+                    </div>
+                    <div className="col">
+                        <button onClick={loadDefaultTrigger} style={{width: "100%"}}>Load</button>
+                    </div>
                 </div>
                 <ul className="list-group">
                     {
