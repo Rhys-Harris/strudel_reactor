@@ -10,10 +10,6 @@ const SoundBoard = ({soundBoard}) => {
     const [parts, setParts] = useState([]);
 
 
-/*canvas {
-  background-color: rgb(27, 27, 27) !important;
-}*/
-
     return (
         <div className="col-md-6">
             <div className="form-check container-fluid">
@@ -22,7 +18,8 @@ const SoundBoard = ({soundBoard}) => {
                         <MasterControlPanel soundBoard={soundBoard} setParts={setParts} />
                     </div>
                     <div className="col-md-8">
-                        <canvas id="roll" style={{backgroundColor: "rgb(27, 27, 27)", width: "100%", height: "100%"}}></canvas>
+                        <canvas id="roll" style={{backgroundColor: "rgb(27, 27, 27)", width: "50%", height: "100%"}}></canvas>
+                        <svg id="graph" style={{backGroundColor: "red", width: "50%", height: "100%"}}></svg>
                     </div>
                 </div>
                 <AdvancedSettings soundBoard={soundBoard} />
