@@ -2,10 +2,7 @@
 EmailID: harrt002
 Remote Repo: [GitHub](https://github.com/Rhys-Harris/strudel_reactor)
 StudentID: 110443215
-Demonstration Video: 
-
-## TODO
-1. Add demonstration video
+Demonstration Video: [YouTube](https://www.youtube.com/watch?v=OI0G7COacbU)
 
 ## Global Controls
 ### Play & Pause
@@ -69,8 +66,33 @@ This will override the default logic, allowing for more customisation.
 ### Save / Load
 The slider defaults can be saved to and loaded from local storage.
 
-## Video Bonus Points
-TODO: Beg
-
 ## Music Bonus Points
-TODO: Beg
+How could I not get some bonus points for that sitar?
+Here is my process for creating my egyptian beat.
+
+First, I was playing my real guitar, and was messing around with that generic
+scale.
+After some noodling, I decided that it was perfect for my strudel demo.
+From this, I transfered my little lick into sitar on strudel.
+Next, I obviously needed some bass, so using my spanish guitar technique I
+created a D, D#, F, C chord progression.
+This 1st Major to an increase of a semitone but retaining the major nature is
+very flamenco.
+So I used 2 basses, one for a smooth sound, and one for a dirtier sound.
+This gives it a fuller sound.
+I just felt like adding flute, so I did, by spamming notes right at the end.
+The drums are very simple, I split them up into seperate instruments because I
+wanted to control them seperately.
+It's just a classic thump clap beat, with a tick that gives it that moving
+feeling (normal for triplets).
+With all this done, I felt like it could do with a good build up, so I added
+the chords using a string instrument.
+This meant I could slowly add more and more layers with more intensity.
+After designing these instruments, I slapped room on basically everything,
+because reverb is the best.
+And then ended it with lpf on one of the basses.
+I actually write my own music, but it's usually guitars and organs, so using
+electronic sitars and sawtooths was a cool change.
+
+These beats were definitely being played by pharaoh on his JBL speaker as he
+chased the Israelites out of Egypt.
